@@ -1,0 +1,25 @@
+# LiteX third-party dependencies
+third_party/
+
+# Build artifacts
+hw/build/
+
+# Python virtual environments
+.venv/
+venv/
+*.pyc
+__pycache__/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Results and logs
+results/
+*.log
