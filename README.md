@@ -9,6 +9,11 @@ Project goal: bring up a LiteX SoC with a VexRiscv CPU on a Digilent Nexys4 DDR 
 - LiteX: (TBD)
 
 ## How to run scripts
+- Setup LiteX (Ubuntu 22.04):
+	- `bash scripts/setup_litex.sh`
+- Verify LiteX install:
+	- `. .venv/bin/activate`
+	- `python scripts/verify_litex.py`
 - Build/bitstream: (TBD)
 - Load/flash: (TBD)
 - Run software: (TBD)
