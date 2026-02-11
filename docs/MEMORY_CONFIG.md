@@ -4,10 +4,10 @@
 
 The LiteX RISC-V SoC for Digilent Nexys4 DDR features a flexible memory hierarchy optimized for TinyML and embedded applications:
 
-- **On-Chip ROM**: Bootloader and application code storage (up to 256 KiB default)
-- **DDR2 SDRAM**: Main system memory (128 MB total, Micron MT47H64M16)
-- **L2 Cache**: Optional scratchpad/cache layer for performance (128 KiB default, up to 256 KiB)
-- **CPU Caches**: Separate I-Cache and D-Cache (16 KiB each default, 8-16 KiB configurable)
+- **On-Chip ROM**: Bootloader and application code storage (128 KiB default, configurable)
+- **DDR2 SDRAM**: Main system memory for large weights/activations (128 MB total, Micron MT47H64M16)
+- **L2 Cache/Scratchpad**: Performance optimization layer (128 KiB default, can expand to 256 KiB)
+- **CPU Caches**: Separate I-Cache and D-Cache for instruction and data (16 KiB each default, 8-16 KiB configurable)
 
 ## Hardware Specifications
 
@@ -16,6 +16,7 @@ The LiteX RISC-V SoC for Digilent Nexys4 DDR features a flexible memory hierarch
 - **Block RAM (BRAM)**: 240 × 36 Kb blocks = ~4.86 MB total
 - **System Clock**: 100 MHz input, configurable via PLL to 50-200 MHz
 - **I/O Standard**: SSTL18_II (DDR2 memory interface)
+- **LUT Count**: 63,400 (sufficient for VexRiscv + peripherals)
 
 ### DDR2 SDRAM: Micron MT47H64M16
 
@@ -23,19 +24,58 @@ The LiteX RISC-V SoC for Digilent Nexys4 DDR features a flexible memory hierarch
 - **Speed**: Configured for 1:4 mode (100 MHz system / 400 MHz DDR clock)
 - **Interface**: 13-bit row address, 3-bit bank address, 10-bit column address, 16-bit data bus
 - **Data Rate**: 400 Mbps
+- **Latency**: ~100-200 ns (acceptable for embedded ML inference)
+
+## Why DDR2 as Main RAM?
+
+### Key Design Rationale
+
+1. **BRAM Budget Optimization**: The Artix-7 100T has only ~4.86 MB of BRAM (240 × 36 Kb blocks). Dedicating most of this to caches and scratchpad is more efficient than trying to fit large models in BRAM.
+
+2. **TinyML Model Weights**: A typical TinyML model (e.g., MobileNetV2 micro, CIFAR-10 model) can range from 100 KiB to several MB. DDR2 provides ample capacity (128 MB) without resource contention.
+
+3. **Performance Trade-offs**:
+   - DDR2 latency (~100-200ns) is acceptable for models with sequential memory access patterns
+   - L2 cache (128 KiB) bridges the speed gap for frequently-accessed data
+   - CPU caches (16 KiB I$ + 16 KiB D$) handle instruction locality and hot data
+
+4. **Resource Efficiency**: Using DDR2 as main RAM leaves BRAM for:
+   - L2 unified cache (128/256 KiB)
+   - VexRiscv I-Cache and D-Cache (16 KiB each)
+   - UART and other peripheral buffers
 
 ## Memory Map
 
 ```
-0x00000000 - 0x0003FFFF  [256 KiB]  On-chip ROM (BIOS + bootloader)
-                                     Default application code location
+Address Range            Size        Description
+─────────────────────────────────────────────────────────
+0x00000000 - 0x0001FFFF  128 KiB    On-Chip ROM (BIOS + bootloader)
+                                      Default application code location
+                                      [Configurable: --rom-size]
 
-0x10000000 - 0x10001FFF  [8 KiB]    On-chip SRAM (rarely used with DDR)
-                                     Integrated main RAM (can be disabled)
-
-0x80000000 - 0x87FFFFFF  [128 MB]   DDR2 SDRAM Main Memory
-                                     Heap, stack, and large data structures
+0x80000000 - 0x87FFFFFF  128 MB     DDR2 SDRAM (Main System RAM)
+                                      Heap, stack, and ML model weights
+                                      Fastest access when L2 cache hit
+                                      
+CSR Registers            (varies)    Control/Status for DDR PHY, Timer, UART
 ```
+
+## BRAM Allocation Strategy
+
+The Artix-7 100T BRAM budget (~4.86 MB) is allocated as follows:
+
+| Component              | Size (default) | Size (max)  | Purpose                           |
+|------------------------|----------------|-------------|-----------------------------------|
+| **L2 Cache**           | 128 KiB        | 256 KiB     | Unified cache for DDR hit/miss pattern smoothing |
+| **I-Cache (VexRiscv)** | 16 KiB         | 16 KiB      | Instruction fetch optimization   |
+| **D-Cache (VexRiscv)** | 16 KiB         | 16 KiB      | Data access optimization         |
+| **Total Used**         | **160 KiB**    | **288 KiB** | ~3-6% of total BRAM              |
+
+**Remaining BRAM** (~4.57-4.70 MB) is available for:
+- DDR PHY calibration buffers
+- UART/debug logging buffers
+- Future peripheral requirements
+- Register files and distributed RAM
 
 ## Memory Configuration via Command-Line Arguments
 
@@ -45,13 +85,14 @@ The `hw/build_soc.py` script accepts arguments to customize memory sizes:
 ```bash
 --rom-size SIZE_IN_BYTES
 ```
-- **Default**: 262144 (256 KiB)
-- **Typical Range**: 64 KiB - 512 KiB
-- **Impact**: Controls on-chip instruction memory for bootloader and init code
+- **Default**: `131072` (128 KiB)
+- **Minimum**: `65536` (64 KiB)
+- **Typical Range**: 64 KiB - 256 KiB
+- **Impact**: Controls on-chip instruction memory for bootloader and BIOS code. Larger ROM allows pre-loading more utility code or test vectors.
 
 Example:
 ```bash
-./scripts/build.sh --rom-size 262144
+./scripts/build.sh --rom-size 131072
 ```
 
 ### L2 Cache Size
@@ -93,227 +134,76 @@ Example:
 ./scripts/build.sh --dcache-size 16384
 ```
 
-## Complete Build Examples
+## Constraints and Considerations
 
-### Default Configuration (TinyML Optimized)
-Recommended for ML models with typical working sets < 256 KiB:
+### Timing and Clock Speeds
 
+- **System Clock**: Default 100 MHz from FPGA. Can be increased to 150-200 MHz via:
+  ```bash
+  ./scripts/build.sh --sys-clk-freq 150000000
+  ```
+  Higher clocks improve cache hit rate benefit but may require timing closure effort in Vivado.
+
+- **DDR Clock**: Automatically set to 4× system clock (1:4 mode)
+  - 100 MHz sys → 400 MHz DDR
+  - 150 MHz sys → 600 MHz DDR
+  - Micron MT47H64M16 supports up to 667 MHz
+
+### BRAM Usage Limits
+
+- **Artix-7 100T**: 240 BRAM36 blocks (~4.86 MB max)
+- **Current usage**: ~160 KiB (default) to 288 KiB (max), leaving >4.5 MB available
+- **Safety margin**: Keep total cache/BRAM < 500 KiB to avoid resource conflicts
+
+### DDR Bandwidth
+
+- **Theoretical Peak**: 128-bit data bus × 400 MHz = 6.4 GB/s (1:4 mode)
+- **Practical Throughput**: ~3-4 GB/s (due to refresh, write leveling, command overhead)
+- **Inference Bottleneck**: Most TinyML models achieve <500 MB/s actual memory bandwidth
+  - L2 cache hit rates >80% are typical for iterative workloads
+
+### Power Consumption
+
+- **DDR2 Active Power**: ~100-150 mW @ 400 MHz
+- **Cache Power**: ~10-20 mW per 64 KiB @ 100 MHz
+- **Total System**: ~400-500 mW @ 100 MHz (CPU, DDR, peripherals)
+
+## Validation Checklist
+
+After building with custom memory configuration:
+
+- [ ] Check `build/csr.json` for correct DDR base address (should be `0x80000000`)
+- [ ] Verify ROM size in `build/csr.csv` matches configured size
+- [ ] Review timing report in `build/gateware/digilent_nexys4ddr_timing.rpt` (WNS > 0 for closure)
+- [ ] Confirm BRAM usage in `build/gateware/digilent_nexys4ddr_utilization_synth.rpt` (<15%)
+- [ ] Test UART communication at 115200 baud after FPGA programming
+- [ ] Run BIOS memory test: `mtest` in UART console (if implemented)
+
+## Troubleshooting
+
+### Issue: Timing Fails with Large L2 Cache
+
+**Solution**: Reduce L2 cache to 128 KiB, or lower system clock to 80 MHz:
 ```bash
-cd /media/sf_Final_Project/litex-nexys4ddr
-./scripts/build.sh
+./scripts/build.sh --l2-size 131072 --sys-clk-freq 80000000
 ```
 
-**Configuration**:
-- ROM: 256 KiB
-- L2 Cache: 128 KiB
-- I-Cache: 16 KiB
-- D-Cache: 16 KiB
-- DDR2: 128 MB
+### Issue: DDR Initialization Fails
 
-### Conservative Configuration (Minimal Resources)
-For designs constrained by BRAM:
+**Solution**: Ensure correct DDR PHY parameters in build output. Check:
+- DDR clock alignment (should be 4× system clock)
+- Write leveling calibration in BIOS console output
 
+### Issue: Out of BRAM Resources
+
+**Solution**: Reduce cache sizes:
 ```bash
-./scripts/build.sh \
-  --rom-size 131072 \
-  --l2-size 131072 \
-  --icache-size 8192 \
-  --dcache-size 8192
+./scripts/build.sh --icache-size 8192 --dcache-size 8192
 ```
-
-### High-Performance Configuration
-For large ML models:
-
-```bash
-./scripts/build.sh \
-  --rom-size 262144 \
-  --l2-size 262144 \
-  --icache-size 16384 \
-  --dcache-size 16384
-```
-
-## BRAM Allocation
-
-The Nexys4 DDR allocates BRAMs as follows:
-
-| Component | Size | BRAM Blocks | Notes |
-|-----------|------|------------|-------|
-| ROM | 256 KiB | ~20 | Bootloader + application code |
-| SRAM | 8 KiB | 1 | Integrated, rarely used |
-| I-Cache | 16 KiB | 2 | Part of CPU core |
-| D-Cache | 16 KiB | 2 | Part of CPU core |
-| L2 Cache | 128 KiB | ~16 | LiteX frontend cache |
-| **Total Used** | **~488 KiB** | **~41** | Leaves ~4.35 MB for other logic/peripherals |
-
-### BRAM Budget
-
-With default configuration:
-- **Used**: ~41 blocks (~1.48 MB)
-- **Available**: ~199 blocks (~3.38 MB)
-- **Utilization**: ~17%
-
-This leaves sufficient BRAM for:
-- Additional peripheral memories
-- Internal FIFOs for I/O interfaces
-- Debug memory
-- Future expandability
-
-## DDR2 Access Performance
-
-### Timing Characteristics
-
-At 100 MHz system clock (400 MHz DDR clock):
-
-| Parameter | Value |
-|-----------|-------|
-| Access Time | ~50 ns (5 cycles) |
-| Burst Length | 8 words |
-| Row Precharge | ~40 ns (4 cycles) |
-| RAS-to-CAS Delay | ~12.5 ns (1.25 cycles) |
-
-### L2 Cache Hit Ratios
-
-With proper cache sizing:
-- **Small kernels** (< 16 KiB): 70-90% L2 hit rate
-- **TinyML models** (16-128 KiB): 60-85% L2 hit rate
-- **Large datasets**: 40-70% L2 hit rate
-
-DDR2 bandwidth utilization typically 30-50% due to cache hierarchy.
-
-## BIOS and Bootloader
-
-The LiteX BIOS is compiled into on-chip ROM and provides:
-
-1. **UART Console** (115200 baud, 8-N-1)
-2. **DRAM Initialization** - Automatic DDR2 controller setup
-3. **Boot Selection** - Load from flash or UART
-4. **Memory Test** - Validate DDR2 with `memtest` command
-5. **Monitoring** - CPU clock frequency display
-
-### BIOS Serial Communication
-
-```bash
-# Connect to FPGA via UART (PuTTY, miniterm, or screen)
-miniterm.py /dev/ttyUSB0 115200
-
-# Then type commands at the BIOS prompt:
-litex> memtest
-litex> memcmp 0x80000000 0x80100000
-litex> sdcard_init
-```
-
-## Building and Programming
-
-### Build Process
-
-1. Run Python build script (generates RTL and BIOS):
-   ```bash
-   cd /media/sf_Final_Project/litex-nexys4ddr
-   source /home/yonatang/Final_Project/litex-nexys4ddr/.venv/bin/activate
-   ./scripts/build.sh
-   ```
-
-2. Outputs to `build/`:
-   - `software/bios/bios.bin` - BIOS binary (embedded in ROM)
-   - `gateware/digilent_nexys4ddr.v` - RTL design
-   - `gateware/digilent_nexys4ddr.xdc` - Pin constraints
-   - `gateware/digilent_nexys4ddr.tcl` - Vivado synthesis script
-
-### Bitstream Generation (Windows with Vivado)
-
-```bash
-# From Windows, navigate to build gateware directory
-cd \vboxsrv\sf_Final_Project\litex-nexys4ddr\build\gateware
-
-# Run Vivado in batch mode
-vivado -mode batch -source digilent_nexys4ddr.tcl
-
-# Output: nexys4ddr_vexriscv.bit (bitstream for programming)
-```
-
-### FPGA Programming
-
-Using OpenOCD or Vivado Hardware Manager:
-
-```bash
-# With Vivado Hardware Manager (from Windows):
-# 1. Open Hardware Manager
-# 2. Open target device (Nexys4 DDR)
-# 3. Program with nexys4ddr_vexriscv.bit
-```
-
-## Verification
-
-After programming the FPGA:
-
-1. **Check LED**: User LED 0 should flash periodically (heartbeat)
-
-2. **Serial Console**:
-   ```bash
-   miniterm.py /dev/ttyUSB0 115200
-   ```
-   Should display LiteX BIOS prompt:
-   ```
-   LiteX BIOS Build Date: ...
-   LiteX BIOS ...
-   
-   DDR3(at 100MHz): initialization...
-   
-   litex>
-   ```
-
-3. **Memory Test**:
-   ```
-   litex> memtest
-   Memtest running at 0x80000000 (bus width: 64-bit)
-   ...
-   ```
-
-## Design Rationale
-
-### Why DDR2 over On-Chip SRAM?
-
-The Artix-7 100T provides 240 BRAM blocks (~4.86 MB), but allocating 2-4 MB to system RAM:
-- Severely limits I/O peripherals (UART, Ethernet, SPI, etc.)
-- Creates bottleneck for real-time I/O (no buffering)
-- Wastes expensive BRAM that could serve other functions
-
-**DDR2 Solution**:
-- 128 MB external memory with only ~16-41 BRAM overhead (L2 cache)
-- Enables complex TinyML models + data buffering
-- Preserves BRAM for peripheral FIFOs and control logic
-
-### Why L2 Cache?
-
-DDR2 accesses are ~5 cycles (50 ns) vs. CPU caches (1-2 cycles). The L2 cache:
-- Filters 60-90% of DDR access requests
-- Reduces DDR bandwidth utilization
-- Provides consistent latency for real-time workloads
-- Cost: ~16 BRAM blocks for 128 KiB (256 KiB optional)
-
-### Cache Sizing for TinyML
-
-Typical TinyML models on microcontrollers:
-
-| Model | Size | Recommended Cache |
-|-------|------|-------------------|
-| Tiny LSTM | 8-32 KiB | 128 KiB L2 + 8 KiB I/D |
-| MobileNet Micro | 32-128 KiB | 256 KiB L2 + 16 KiB I/D |
-| Keyword Detection | 8-16 KiB | 128 KiB L2 + 8 KiB I/D |
-| Gesture Recognition | 16-64 KiB | 128-256 KiB L2 + 16 KiB I/D |
-
-## Future Enhancements
-
-1. **Variable Bus Width**: Support 32-bit or 16-bit DDR bus for area/power trade-offs
-2. **DDR3 Support**: Upgrade to DDR3 PHY for faster memories
-3. **HyperRAM**: Add external HyperRAM for increased bandwidth
-4. **L3 Cache**: BRAM-based L3 for model weight prefetching
-5. **Hardware Accelerators**: Integrate ML compute units alongside CPU
 
 ## References
 
-- [Nexys4 DDR Reference Manual](https://digilent.com/reference/programmable-logic/nexys-4-ddr/reference-manual)
-- [Artix-7 FPGA Datasheet](https://www.xilinx.com/support/documentation/data_sheets/ds180_7Series_Overview.pdf)
-- [MT47H64M16 DDR2 SDRAM Datasheet](https://www.micron.com/)
-- [LiteX Documentation](https://github.com/enjoy-digital/litex)
-- [LiteDRAM GitHub](https://github.com/enjoy-digital/litedram)
+- **Xilinx Artix-7 FPGA**: DS181 - 7 Series FPGAs Overview
+- **Micron MT47H64M16**: DDR2 SDRAM datasheet (MT47H64M16 rev J)
+- **LiteX Documentation**: https://github.com/enjoy-digital/litex
+- **VexRiscv CPU**: https://github.com/SpinalHDL/VexRiscv

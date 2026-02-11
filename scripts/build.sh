@@ -76,7 +76,7 @@ echo "Using LiteX from: $LITEX_BASE"
 echo ""
 
 # Parse optional memory configuration arguments
-# Example: ./build.sh --rom-size 262144 --l2-size 262144 --icache-size 8192 --dcache-size 8192
+# Example: ./build.sh --rom-size 0x20000 --l2-size 0x20000 --icache-size 0x4000 --dcache-size 0x4000
 BUILD_ARGS=(
   "--output-dir" "$BUILD_DIR"
   "--no-compile-gateware"
@@ -96,6 +96,14 @@ echo "Build directory: $BUILD_DIR"
 echo "Gateware files (for Vivado):"
 ls -lh "$BUILD_DIR/gateware"/*.{v,xdc,tcl} 2>/dev/null || true
 echo ""
-echo "BIOS with Vivado on Windows:"
-echo "  cd \"\\vboxsrv\sf_Final_Project\litex-nexys4ddr\build\gateware\""
+echo "Supported memory configuration flags:"
+echo "  --rom-size SIZE_IN_BYTES         (default: 131072, min: 65536)"
+echo "  --l2-size SIZE_IN_BYTES          (default: 131072, options: 131072 or 262144)"
+echo "  --icache-size SIZE_IN_BYTES      (default: 16384, options: 8192 or 16384)"
+echo "  --dcache-size SIZE_IN_BYTES      (default: 16384, options: 8192 or 16384)"
+echo ""
+echo "Example with custom config:"
+echo "  ./build.sh --rom-size 131072 --l2-size 262144 --icache-size 16384 --dcache-size 16384"
+echo ""
+echo "Build from Vivado on Windows:"
 echo "  vivado -mode batch -source digilent_nexys4ddr.tcl"

@@ -306,7 +306,7 @@
         "config_cpu_name": "vexriscv",
         "config_cpu_human_name": "vexriscv",
         "config_cpu_nop": "nop",
-        "config_l2_size": 8192,
+        "config_l2_size": 131072,
         "config_csr_data_width": 32,
         "config_csr_alignment": 32,
         "config_csr_ordering_big": null,
@@ -321,7 +321,7 @@
     "memories": {
         "rom": {
             "base": 0,
-            "size": 262144,
+            "size": 131072,
             "type": "cached"
         },
         "sram": {

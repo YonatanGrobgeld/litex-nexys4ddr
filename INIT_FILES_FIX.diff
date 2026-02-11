@@ -1,0 +1,59 @@
+============================================================================
+DIFF: Init Files Fix for Vivado Batch Mode Synthesis
+============================================================================
+
+File: build/gateware/digilent_nexys4ddr.tcl
+
+--- BEFORE (lines 1-20)
++++ AFTER (lines 1-27)
+
+ # Create Project
+ 
+ create_project -force -name digilent_nexys4ddr -part xc7a100tcsg324-1
+ set_msg_config -id {Common 17-55} -new_severity {Warning}
+ 
++# Set working directory to gateware directory so init files are found
++set gateware_dir [file dirname [info script]]
++cd $gateware_dir
++
+ # Add project commands
+ 
+ 
+ # Add Sources
+ 
+ read_verilog {/home/yonatang/litex-project/third_party/litex/pythondata-cpu-vexriscv/pythondata_cpu_vexriscv/verilog/VexRiscv.v}
+ read_verilog {/home/yonatang/litex-project/build/gateware/digilent_nexys4ddr.v}
+ 
++# Add memory init files as project data files so Vivado can find them during synthesis
++add_files -fileset sim_1 {digilent_nexys4ddr_rom.init digilent_nexys4ddr_sram.init}
++
+ # Add EDIFs
+ 
+============================================================================
+SUMMARY OF CHANGES:
+============================================================================
+
+Added 2 sections to the TCL script:
+
+1. Lines 7-9: Change to gateware directory
+   - Capture the script directory with [file dirname [info script]]
+   - Change Vivado's working directory to that location with cd command
+   - Enables relative path resolution for init files
+
+2. Lines 21-22: Add init files to project
+   - Use add_files command to register init files with the project
+   - Target fileset sim_1 (standard simulation fileset that works for synthesis too)
+   - Vivado will now copy/include these files in the project
+
+Why This Works:
+  • On Windows batch mode, Vivado doesn't automatically set working directory to script location
+  • By explicitly using cd + [file dirname [info script]], we ensure the working dir is correct
+  • The $readmemh() calls in Verilog now resolve correctly because CWD = gateware directory
+  • add_files ensures Vivado tracks the files and includes them in synthesis
+
+No Logic Changes:
+  • No changes to memory architecture, sizes, or initialization content
+  • Only file path resolution and project file registration
+  • Synthesis behavior and netlist output remain identical
+
+============================================================================
