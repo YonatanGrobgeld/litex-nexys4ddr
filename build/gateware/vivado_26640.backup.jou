@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Wed Feb 11 13:29:00 2026
+# Process ID         : 26640
+# Current directory  : C:/Final_Project/litex-nexys4ddr/build/gateware
+# Command line       : vivado.exe -mode batch -source digilent_nexys4ddr.tcl
+# Log file           : C:/Final_Project/litex-nexys4ddr/build/gateware/vivado.log
+# Journal file       : C:/Final_Project/litex-nexys4ddr/build/gateware\vivado.jou
+# Running On         : DESKTOP-6JLD9LJ
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 11th Gen Intel(R) Core(TM) i7-11390H @ 3.40GHz
+# CPU Frequency      : 2918 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 16905 MB
+# Swap memory        : 11274 MB
+# Total Virtual      : 28180 MB
+# Available Virtual  : 4396 MB
+#-----------------------------------------------------------
+source digilent_nexys4ddr.tcl

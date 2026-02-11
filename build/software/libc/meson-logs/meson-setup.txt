@@ -1,0 +1,155 @@
+The Meson build system
+Version: 1.10.1
+Source dir: /media/sf_Final_Project/litex-nexys4ddr/build/software/picolibc_src
+Build dir: /media/sf_Final_Project/litex-nexys4ddr/build/software/libc
+Build type: cross build
+Project name: picolibc
+Project version: 1.7.9
+C compiler for the host machine: riscv64-unknown-elf-gcc (gcc 10.2.0 "riscv64-unknown-elf-gcc () 10.2.0")
+C linker for the host machine: riscv64-unknown-elf-gcc ld.bfd 2.35.1
+C compiler for the build machine: cc (gcc 11.4.0 "cc (Ubuntu 11.4.0-1ubuntu1~22.04.2) 11.4.0")
+C linker for the build machine: cc ld.bfd 2.38
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Host machine cpu family: riscv
+Host machine cpu: vexriscv
+Target machine cpu family: riscv
+Target machine cpu: vexriscv
+Compiler for C supports arguments -nostdlib: YES 
+Checking if "long double check" compiles: YES 
+Checking if "long double same as double" compiles: NO 
+Checking if "long double mantissa is 64 bits" compiles: NO 
+Checking if "long double mantissa is 113 bits" compiles: YES 
+Checking if "double same as float" compiles: NO 
+Compiler for C supports arguments -fno-common: YES 
+Compiler for C supports arguments -frounding-math: YES 
+Compiler for C supports arguments -fsignaling-nans: YES 
+Compiler for C supports arguments -Wno-unsupported-floating-point-opt: NO 
+Compiler for C supports arguments -fno-stack-protector: YES 
+Compiler for C supports arguments -fno-builtin-copysignl: YES 
+Program riscv64-unknown-elf-gcc-nm found: YES
+Program scripts/duplicate-names found: YES (/media/sf_Final_Project/litex-nexys4ddr/build/software/picolibc_src/scripts/duplicate-names)
+Compiler for C supports link arguments -Wl,--defsym=_start=0: YES 
+Compiler for C supports link arguments -Wl,-alias,main,testalias: NO 
+Compiler for C supports function attribute alias: YES 
+Compiler for C supports function attribute format: YES 
+Compiler for C supports function attribute weak: YES 
+Configuring picolibc.specs using configuration
+Configuring picolibcpp.specs using configuration
+Configuring test.specs using configuration
+Configuring picolibc.ld using configuration
+Configuring picolibcpp.ld using configuration
+Compiler for C supports arguments -Werror=implicit-function-declaration: YES 
+Compiler for C supports arguments -Werror=vla: YES 
+Compiler for C supports arguments -Warray-bounds: YES 
+Compiler for C supports arguments -Wold-style-definition: YES 
+Compiler for C supports arguments -Werror=double-promotion: YES 
+Compiler for C supports arguments -Wno-missing-braces: YES 
+Compiler for C supports arguments -Wno-implicit-int: YES 
+Compiler for C supports arguments -Wno-return-type: YES 
+Compiler for C supports arguments -Wno-unused-command-line-argument: NO 
+Checking if "packed structs may contain bitfields" compiles: YES 
+Checking if "has __builtin_mul_overflow" links: YES 
+Checking if "has __builtin_add_overflow" links: YES 
+Checking if "supports _Complex" compiles: YES 
+Checking if "has __builtin_expect" links: YES 
+Compiler for C supports arguments -Werror: YES 
+Checking if "attribute __alloc_size__" compiles: YES 
+Checking if "attributes constructor/destructor" compiles: YES 
+Checking if "test for __builtin_alloca" links: YES 
+Checking if "test for __builtin_ffs" links: YES 
+Checking if "test for __builtin_ffsl" links: YES 
+Checking if "test for __builtin_ffsll" links: YES 
+Checking if "test for __builtin_ctz" links: YES 
+Checking if "test for __builtin_ctzl" links: YES 
+Checking if "test for __builtin_ctzll" links: YES 
+Checking if "test for __builtin_copysignl" links: YES 
+Checking if "test for __builtin_copysign" links: YES 
+Checking if "test for __builtin_isinfl" links: YES 
+Checking if "test for __builtin_isinf" links: YES 
+Checking if "test for __builtin_isnanl" links: YES 
+Checking if "test for __builtin_isnan" links: YES 
+Checking if "test for __builtin_finitel" links: YES 
+Checking if "test for __builtin_isfinite" links: YES 
+Compiler for C supports arguments -fno-tree-loop-distribute-patterns: YES 
+Checking if "no_builtin attribute" compiles: NO 
+Compiler for C supports function attribute always_inline: YES 
+Compiler for C supports function attribute gnu_inline: YES 
+Compiler for C supports arguments -fno-builtin: YES 
+Compiler for C supports arguments -ffunction-sections: YES 
+Compiler for C supports arguments -fstack-protector-all: YES 
+Compiler for C supports arguments -fstack-protector-strong: YES 
+../picolibc_src/meson.build:1242: DEPRECATION: Project uses feature that was always broken, and is now deprecated since '1.3.0': str.format: Value other than strings, integers, bools, options, dictionaries and lists thereof..
+../picolibc_src/meson.build:1254: DEPRECATION: Project uses feature that was always broken, and is now deprecated since '1.3.0': str.format: Value other than strings, integers, bools, options, dictionaries and lists thereof..
+Compiler for C supports arguments -fno-builtin-malloc: YES 
+Compiler for C supports arguments -fno-builtin-free: YES 
+Message: libc/string/memcpy.c: machine overrides generic
+Message: libc/string/memmove.S: machine overrides generic
+Message: libc/string/memset.S: machine overrides generic
+Message: libc/string/strcpy.c: machine overrides generic
+Message: libc/string/strlen.c: machine overrides generic
+Message: libc/string/strcmp.S: machine overrides generic
+Message: libc/include/sys/fenv.h: machine overrides generic
+Message: libc/include/machine/math.h: machine overrides generic
+Message: libm/math/s_fabs.c: machine overrides generic
+Message: libm/math/s_sqrt.c: machine overrides generic
+Message: libm/math/sf_fabs.c: machine overrides generic
+Message: libm/math/sf_sqrt.c: machine overrides generic
+Message: libm/common/s_finite.c: machine overrides generic
+Message: libm/common/s_copysign.c: machine overrides generic
+Message: libm/common/s_isinf.c: machine overrides generic
+Message: libm/common/s_isnan.c: machine overrides generic
+Message: libm/common/s_fma.c: machine overrides generic
+Message: libm/common/s_fmax.c: machine overrides generic
+Message: libm/common/s_fmin.c: machine overrides generic
+Message: libm/common/s_fpclassify.c: machine overrides generic
+Message: libm/common/s_lrint.c: machine overrides generic
+Message: libm/common/s_llrint.c: machine overrides generic
+Message: libm/common/s_lround.c: machine overrides generic
+Message: libm/common/s_llround.c: machine overrides generic
+Message: libm/common/sf_finite.c: machine overrides generic
+Message: libm/common/sf_copysign.c: machine overrides generic
+Message: libm/common/sf_isinf.c: machine overrides generic
+Message: libm/common/sf_isnan.c: machine overrides generic
+Message: libm/common/sf_fma.c: machine overrides generic
+Message: libm/common/sf_fmax.c: machine overrides generic
+Message: libm/common/sf_fmin.c: machine overrides generic
+Message: libm/common/sf_fpclassify.c: machine overrides generic
+Message: libm/common/sf_lrint.c: machine overrides generic
+Message: libm/common/sf_llrint.c: machine overrides generic
+Message: libm/common/sf_lround.c: machine overrides generic
+Message: libm/common/sf_llround.c: machine overrides generic
+Message: libm/fenv/feclearexcept.c: machine overrides generic
+Message: libm/fenv/fegetenv.c: machine overrides generic
+Message: libm/fenv/fegetexceptflag.c: machine overrides generic
+Message: libm/fenv/fegetround.c: machine overrides generic
+Message: libm/fenv/feholdexcept.c: machine overrides generic
+Message: libm/fenv/feraiseexcept.c: machine overrides generic
+Message: libm/fenv/fesetenv.c: machine overrides generic
+Message: libm/fenv/fesetexceptflag.c: machine overrides generic
+Message: libm/fenv/fesetround.c: machine overrides generic
+Message: libm/fenv/fetestexcept.c: machine overrides generic
+Message: libm/fenv/feupdateenv.c: machine overrides generic
+Configuring picolibc.h using configuration
+Build targets in project: 9
+NOTICE: Future-deprecated features used:
+ * 0.56.0: {'meson.source_root'}
+ * 0.58.0: {'meson.get_cross_property'}
+WARNING: Broken features used:
+ * 1.3.0: {'str.format: Value other than strings, integers, bools, options, dictionaries and lists thereof.'}
+
+picolibc 1.7.9
+
+  User defined options
+    Cross files         : cross.txt
+    atomic-ungetc       : false
+    format-default      : integer
+    includedir          : picolibc/riscv64-unknown-elf/include
+    io-long-long        : true
+    libdir              : picolibc/riscv64-unknown-elf/lib
+    multilib            : false
+    picocrt             : false
+    thread-local-storage: false
+
+Found ninja-1.13.0.git.kitware.jobserver-pipe-1 at /home/yonatang/Final_Project/litex-nexys4ddr/.venv/bin/ninja
+WARNING: Running the setup command as `meson [options]` instead of `meson setup [options]` is ambiguous and deprecated.

@@ -9,8 +9,8 @@ set_msg_config -id {Common 17-55} -new_severity {Warning}
 
 # Add Sources
 
-read_verilog {/home/yonatang/Final_Project/litex-nexys4ddr/third_party/litex/pythondata-cpu-vexriscv/pythondata_cpu_vexriscv/verilog/VexRiscv.v}
-read_verilog {/home/yonatang/Final_Project/litex-nexys4ddr/hw/build/gateware/digilent_nexys4ddr.v}
+read_verilog {../../../third_party/litex/pythondata-cpu-vexriscv/pythondata_cpu_vexriscv/verilog/VexRiscv.v}
+read_verilog {digilent_nexys4ddr.v}
 
 # Add EDIFs
 

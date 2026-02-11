@@ -1,0 +1,33 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Wed Feb 11 13:32:20 2026
+| Host         : DESKTOP-6JLD9LJ running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file digilent_nexys4ddr_utilization_hierarchical_synth.rpt
+| Design       : digilent_nexys4ddr
+| Device       : xc7a100tcsg324-1
+| Speed File   : -1
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++----------------------------+------------------+------------+------------+---------+------+------+--------+--------+------------+
+|          Instance          |      Module      | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++----------------------------+------------------+------------+------------+---------+------+------+--------+--------+------------+
+| digilent_nexys4ddr         |            (top) |       2260 |       2244 |      16 |    0 | 1702 |     11 |      8 |          4 |
+|   (digilent_nexys4ddr)     |            (top) |        186 |        170 |      16 |    0 |  446 |     10 |      0 |          0 |
+|   VexRiscv                 |         VexRiscv |       2074 |       2074 |       0 |    0 | 1256 |      1 |      8 |          4 |
+|     (VexRiscv)             |         VexRiscv |        916 |        916 |       0 |    0 | 1097 |      0 |      2 |          4 |
+|     IBusCachedPlugin_cache | InstructionCache |        603 |        603 |       0 |    0 |  100 |      1 |      1 |          0 |
+|     dataCache_1            |        DataCache |        555 |        555 |       0 |    0 |   59 |      0 |      5 |          0 |
++----------------------------+------------------+------------+------------+---------+------+------+--------+--------+------------+
+
+

@@ -1,0 +1,132 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Wed Feb 11 13:32:55 2026
+| Host         : DESKTOP-6JLD9LJ running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file digilent_nexys4ddr_control_sets.rpt
+| Design       : digilent_nexys4ddr
+| Device       : xc7a100t
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    54 |
+|    Minimum number of control sets                        |    54 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    95 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    54 |
+| >= 0 to < 4        |     3 |
+| >= 4 to < 6        |     9 |
+| >= 6 to < 8        |     2 |
+| >= 8 to < 10       |     6 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     2 |
+| >= 14 to < 16      |     0 |
+| >= 16              |    32 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              77 |           39 |
+| No           | No                    | Yes                    |               2 |            1 |
+| No           | Yes                   | No                     |             275 |          105 |
+| Yes          | No                    | No                     |            1035 |          367 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             308 |           96 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++-----------------+--------------------------------------------------------------------------------------------------+--------------------------------------------------------------+------------------+----------------+--------------+
+|   Clock Signal  |                                           Enable Signal                                          |                       Set/Reset Signal                       | Slice Load Count | Bel Load Count | Bels / Slice |
++-----------------+--------------------------------------------------------------------------------------------------+--------------------------------------------------------------+------------------+----------------+--------------+
+|  crg_clkout_buf | basesoc_serial_tx_rs232phytx_next_value_ce1                                                      | sys_rst                                                      |                1 |              1 |         1.00 |
+|  crg_clkout_buf |                                                                                                  | xilinxasyncresetsynchronizerimpl                             |                1 |              2 |         2.00 |
+|  crg_clkout_buf | VexRiscv/_zz_iBus_rsp_valid                                                                      | VexRiscv/dataCache_1/basesoc_reset_storage_reg[0]            |                1 |              3 |         3.00 |
+|  crg_clkout_buf | basesoc_rx_tick                                                                                  | p_5_in                                                       |                1 |              4 |         4.00 |
+|  crg_clkout_buf | basesoc_tx_tick                                                                                  | basesoc_tx_phase[31]_i_1_n_0                                 |                1 |              4 |         4.00 |
+|  crg_clkout_buf | basesoc_uart_rx_fifo_wrport_we__0                                                                | sys_rst                                                      |                1 |              4 |         4.00 |
+|  crg_clkout_buf | basesoc_uart_rx_fifo_syncfifo_re                                                                 | sys_rst                                                      |                1 |              4 |         4.00 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/basesoc_uart_tx_fifo_syncfifo_re                                 | sys_rst                                                      |                1 |              4 |         4.00 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/basesoc_uart_tx_fifo_level0_reg[3][0]                            | sys_rst                                                      |                1 |              4 |         4.00 |
+|  crg_clkout_buf | basesoc_uart_rx_fifo_level0[4]_i_1_n_0                                                           | sys_rst                                                      |                1 |              5 |         5.00 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/E[0]                                                             | sys_rst                                                      |                2 |              5 |         2.50 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/when_CsrPlugin_l1390                                             |                                                              |                3 |              5 |         1.67 |
+|  crg_clkout_buf |                                                                                                  | VexRiscv/dataCache_1/SR[0]                                   |                2 |              6 |         3.00 |
+|  crg_clkout_buf | basesoc_tx_data1_in0                                                                             |                                                              |                1 |              7 |         7.00 |
+|  crg_clkout_buf |                                                                                                  | VexRiscv/IBusCachedPlugin_cache/state_reg                    |                3 |              8 |         2.67 |
+|  crg_clkout_buf | VexRiscv/dataCache_1/stageB_flusher_counter[7]_i_2_n_0                                           | VexRiscv/dataCache_1/stageB_flusher_counter[7]_i_1_n_0       |                4 |              8 |         2.00 |
+|  crg_clkout_buf | basesoc_rx_data_rs232phyrx_next_value_ce1                                                        |                                                              |                2 |              8 |         4.00 |
+|  crg_clkout_buf | basesoc_uart_rx_fifo_syncfifo_re                                                                 |                                                              |                2 |              8 |         4.00 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/when_InstructionCache_l338                                       | VexRiscv/IBusCachedPlugin_cache/when_InstructionCache_l351   |                2 |              8 |         4.00 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/basesoc_uart_tx_fifo_syncfifo_re                                 |                                                              |                2 |              8 |         4.00 |
+|  crg_clkout_buf | basesoc_uart_rx_fifo_wrport_we__0                                                                |                                                              |                2 |             12 |         6.00 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/basesoc_uart_tx_fifo_level0_reg[3][0]                            |                                                              |                2 |             12 |         6.00 |
+|  crg_clkout_buf |                                                                                                  | VexRiscv/IBusCachedPlugin_cache/FDPE_1                       |                5 |             20 |         4.00 |
+|  crg_clkout_buf |                                                                                                  | VexRiscv/dataCache_1/basesoc_reset_storage_reg[0]            |               16 |             24 |         1.50 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/lineLoader_address[31]_i_1_n_0                                   |                                                              |                6 |             27 |         4.50 |
+|  crg_clkout_buf | VexRiscv/dataCache_1/stageB_mmuRsp_physicalAddress[30]_i_1_n_0                                   |                                                              |                8 |             30 |         3.75 |
+|  crg_clkout_buf | VexRiscv/dataCache_1/E[0]                                                                        |                                                              |                8 |             30 |         3.75 |
+|  crg_clkout_buf | VexRiscv/dataCache_1/execute_CsrPlugin_csr_773_reg[0]                                            |                                                              |               12 |             30 |         2.50 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/IBusCachedPlugin_fetchPc_booted_reg                              | VexRiscv/dataCache_1/basesoc_reset_storage_reg[0]            |               14 |             30 |         2.14 |
+|  crg_clkout_buf |                                                                                                  | p_5_in                                                       |                8 |             31 |         3.88 |
+|  crg_clkout_buf |                                                                                                  | basesoc_tx_phase[31]_i_1_n_0                                 |                8 |             31 |         3.88 |
+|  crg_clkout_buf | VexRiscv/dataCache_1/memory_arbitration_isValid_reg_4[0]                                         |                                                              |                8 |             32 |         4.00 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/state_reg_2[0]                                                   | sys_rst                                                      |                8 |             32 |         4.00 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/toplevel_dataCache_1_io_mem_cmd_s2mPipe_rData_address_reg[11][0] | sys_rst                                                      |                8 |             32 |         4.00 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/state_reg_1[0]                                                   | sys_rst                                                      |                9 |             32 |         3.56 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/CsrPlugin_exceptionPortCtrl_exceptionContext_badAddr[0]          |                                                              |               17 |             32 |         1.88 |
+|  crg_clkout_buf | VexRiscv/dataCache_1/execute_CsrPlugin_csr_3008_reg[0]                                           | VexRiscv/dataCache_1/basesoc_reset_storage_reg[0]            |               13 |             32 |         2.46 |
+|  crg_clkout_buf | VexRiscv/CsrPlugin_hadException                                                                  |                                                              |                5 |             32 |         6.40 |
+|  crg_clkout_buf | VexRiscv/memory_DivPlugin_accumulator[31]_i_1_n_0                                                | VexRiscv/dataCache_1/memory_DivPlugin_div_counter_willClear  |                7 |             32 |         4.57 |
+|  crg_clkout_buf | VexRiscv/memory_DivPlugin_div_result[0]                                                          |                                                              |                8 |             32 |         4.00 |
+|  crg_clkout_buf | VexRiscv/dataCache_1/execute_CsrPlugin_csr_833_reg[0]                                            |                                                              |               18 |             32 |         1.78 |
+|  crg_clkout_buf | basesoc_timer_update_value_re                                                                    | sys_rst                                                      |               12 |             32 |         2.67 |
+|  crg_clkout_buf |                                                                                                  | VexRiscv/IBusCachedPlugin_cache/SR[0]                        |               12 |             32 |         2.67 |
+|  crg_clkout_buf |                                                                                                  | VexRiscv/IBusCachedPlugin_cache/lineLoader_address_reg[11]_0 |               15 |             32 |         2.13 |
+|  crg_clkout_buf |                                                                                                  | VexRiscv/IBusCachedPlugin_cache/count_reg_17_sn_1            |               12 |             32 |         2.67 |
+|  crg_clkout_buf | basesoc_bus_errors[0]                                                                            | sys_rst                                                      |                8 |             32 |         4.00 |
+|  crg_clkout_buf |                                                                                                  | sys_rst                                                      |               24 |             59 |         2.46 |
+|  crg_clkout_buf | VexRiscv/IBusCachedPlugin_cache/IBusCachedPlugin_iBusRsp_stages_1_output_m2sPipe_ready           |                                                              |               14 |             64 |         4.57 |
+|  crg_clkout_buf | VexRiscv/toplevel_dataCache_1_io_mem_cmd_s2mPipe_ready                                           |                                                              |               21 |             70 |         3.33 |
+|  crg_clkout_buf | VexRiscv/toplevel_dataCache_1_io_mem_cmd_rValidN                                                 |                                                              |               28 |             70 |         2.50 |
+|  crg_clkout_buf |                                                                                                  |                                                              |               39 |             77 |         1.97 |
+|  crg_clkout_buf | VexRiscv/dataCache_1/when_CsrPlugin_l1259_3                                                      |                                                              |               54 |            140 |         2.59 |
+|  crg_clkout_buf | VexRiscv/dataCache_1/when_CsrPlugin_l1259_1                                                      |                                                              |               72 |            162 |         2.25 |
+|  crg_clkout_buf | VexRiscv/dataCache_1/memory_DivPlugin_div_counter_willClear                                      |                                                              |               78 |            216 |         2.77 |
++-----------------+--------------------------------------------------------------------------------------------------+--------------------------------------------------------------+------------------+----------------+--------------+
+
+
