@@ -116,51 +116,29 @@ def main() -> int:
         type=float,
         help="System clock frequency in Hz (default: 100 MHz).",
     )
-    
-    parser.add_argument(
-        "--rom-size",
-        default=None,
-        type=int,
-        help="On-chip ROM size in bytes (default: 256 KiB).",
-    )
-    
-    parser.add_argument(
-        "--l2-size",
-        default=None,
-        type=int,
-        help="L2 cache size in bytes, configurable to 128 KiB (default) or 256 KiB.",
-    )
-    
-    parser.add_argument(
-        "--icache-size",
-        default=None,
-        type=int,
-        help="CPU instruction cache size in bytes (default: 16 KiB).",
-    )
-    
-    parser.add_argument(
-        "--dcache-size",
-        default=None,
-        type=int,
-        help="CPU data cache size in bytes (default: 16 KiB).",
-    )
 
     parser.set_defaults(
         output_dir=output_dir,
         build_name="nexys4ddr_vexriscv",
         build_backend="litex",
+        integrated_rom_size=256 * 1024,  # 256 KiB default ROM
     )
 
     args = parser.parse_args()
     
+    # Get SoC core arguments but extract l2_size and integrated_rom_size since we handle them separately
+    soc_core_kwargs = soc_core_argdict(args)
+    l2_size = soc_core_kwargs.pop("l2_size", 128 * 1024)
+    rom_size = soc_core_kwargs.pop("integrated_rom_size", 256 * 1024)
+    
     soc = BaseSoC(
         platform=platform,
         sys_clk_freq=int(args.sys_clk_freq),
-        rom_size=args.rom_size,
-        l2_size=args.l2_size,
-        icache_size=args.icache_size,
-        dcache_size=args.dcache_size,
-        **soc_core_argdict(args),
+        rom_size=rom_size,
+        l2_size=l2_size,
+        icache_size=16 * 1024,  # 16 KiB default
+        dcache_size=16 * 1024,  # 16 KiB default
+        **soc_core_kwargs,
     )
 
     builder = Builder(soc, **builder_argdict(args))
@@ -174,11 +152,11 @@ def main() -> int:
     print(f"Bitstream: {bitstream}")
     print("UART: 115200 8-N-1")
     print("\nMemory Configuration:")
-    print(f"  ROM: {args.rom_size or 256 * 1024} bytes")
+    print(f"  ROM: {rom_size} bytes ({rom_size // 1024} KiB)")
     print(f"  DDR2 SDRAM: 128 MB (0x08000000)")
-    print(f"  L2 Cache: {args.l2_size or 128 * 1024} bytes")
-    print(f"  I-Cache: {args.icache_size or 16 * 1024} bytes")
-    print(f"  D-Cache: {args.dcache_size or 16 * 1024} bytes")
+    print(f"  L2 Cache: {l2_size} bytes ({l2_size // 1024} KiB)")
+    print(f"  I-Cache: 16384 bytes (16 KiB)")
+    print(f"  D-Cache: 16384 bytes (16 KiB)")
 
     return 0
 
