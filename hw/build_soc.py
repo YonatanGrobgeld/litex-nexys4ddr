@@ -3,11 +3,11 @@ import argparse
 import os
 import sys
 
-from migen import ClockDomain, Module
+from migen import ClockDomain, Module, Signal
 
 from litex.soc.integration.builder import Builder, builder_args, builder_argdict
 from litex.soc.integration.soc_core import SoCCore, soc_core_args, soc_core_argdict
-from litex.soc.cores.clock import S7PLL
+from litex.soc.cores.clock import S7PLL, S7MMCM, S7IDELAYCTRL
 
 from litex_boards.platforms import digilent_nexys4ddr
 
@@ -17,23 +17,31 @@ from litedram.modules import MT47H64M16
 
 class _CRG(Module):
     def __init__(self, platform, sys_clk_freq):
+        self.rst = Signal()
         self.clock_domains.cd_sys = cd_sys = ClockDomain()
-        self.clock_domains.cd_sys4x = cd_sys4x = ClockDomain()
-        self.clock_domains.cd_sys4x_dqs = cd_sys4x_dqs = ClockDomain(reset_less=True)
+        self.clock_domains.cd_sys2x = cd_sys2x = ClockDomain()
+        self.clock_domains.cd_sys2x_dqs = cd_sys2x_dqs = ClockDomain(reset_less=True)
+        self.clock_domains.cd_iodelay = cd_iodelay = ClockDomain()
 
         clk100 = platform.request("clk100")
         rst = ~platform.request("cpu_reset")
 
-        self.submodules.pll = pll = S7PLL(speedgrade=-1)
+        self.submodules.pll = pll = S7MMCM(speedgrade=-1)
+        self.comb += pll.reset.eq(rst | self.rst)
+
         pll.register_clkin(clk100, 100e6)
         pll.create_clkout(cd_sys, sys_clk_freq)
-        pll.create_clkout(cd_sys4x, 4 * sys_clk_freq)
-        pll.create_clkout(cd_sys4x_dqs, 4 * sys_clk_freq, phase=90)
-        pll.reset.eq(rst)
+        pll.create_clkout(cd_sys2x, 2 * sys_clk_freq)
+        pll.create_clkout(cd_sys2x_dqs, 2 * sys_clk_freq, phase=90)
+        pll.create_clkout(cd_iodelay, 200e6)
+        
+        platform.add_false_path_constraints(self.cd_sys.clk, pll.clkin) # Ignore sys_clk to pll.clkin path created by SoC's rst.
+
+        self.submodules.idelayctrl = S7IDELAYCTRL(self.cd_iodelay)
 
 
 class BaseSoC(SoCCore):
-    def __init__(self, platform, sys_clk_freq, 
+    def __init__(self, platform, sys_clk_freq=int(75e6), 
                  rom_size=None, l2_size=None, 
                  icache_size=None, dcache_size=None, 
                  **kwargs):
@@ -73,20 +81,19 @@ class BaseSoC(SoCCore):
         if l2_size is None:
             l2_size = 128 * 1024
         
-        # Create DDR2 PHY for Artix-7 with appropriate 4:1 ratio
+        # Create DDR2 PHY for Artix-7 with appropriate 2:1 ratio (Reference Target Specs)
         self.ddrphy = s7ddrphy.A7DDRPHY(
             pads=platform.request("ddram"),
             memtype="DDR2",
-            nphases=4,
-            sys_clk_freq=sys_clk_freq,
-            iodelay_clk_freq=200e6
+            nphases=2,
+            sys_clk_freq=sys_clk_freq
         )
         
         # Add DDR2 SDRAM as main system RAM
         self.add_sdram(
             "sdram",
             phy=self.ddrphy,
-            module=MT47H64M16(sys_clk_freq, "1:4"),
+            module=MT47H64M16(sys_clk_freq, "1:2"),
             size=0x08000000,  # 128 MB
             l2_cache_size=l2_size
         )
@@ -114,9 +121,9 @@ def main() -> int:
 
     parser.add_argument(
         "--sys-clk-freq",
-        default=_default_sys_clk_freq(platform),
+        default=75e6, # Default to 75 MHz for safe DDR2 operation
         type=float,
-        help="System clock frequency in Hz (default: 100 MHz).",
+        help="System clock frequency in Hz (default: 75 MHz).",
     )
 
     parser.add_argument(
@@ -182,10 +189,15 @@ def main() -> int:
 
     builder = Builder(soc, **builder_argdict(args))
     # Always skip Vivado synthesis on Linux
+    print(f"[DEBUG] compile_software: {builder.compile_software}")
+    print(f"[DEBUG] compile_gateware: {builder.compile_gateware}")
     try:
         builder.build()
         print("[INFO] Vivado synthesis and bitstream generation completed.")
     except Exception as e:
+        print(f"[ERROR] Build failed with: {e}")
+        import traceback
+        traceback.print_exc()
         if sys.platform.startswith("linux") and (
             "Vivado" in str(e) or "Unable to find or source Vivado" in str(e) or "OSError" in str(type(e))):
             print("\n[INFO] Vivado synthesis is skipped on Linux due to missing Vivado toolchain.")
@@ -219,7 +231,6 @@ def main() -> int:
     print(f"\nSystem Configuration:")
     print(f"  CPU: VexRiscv (standard variant)")
     print(f"  System Clock: {int(args.sys_clk_freq / 1e6)} MHz")
-    print(f"  DDR Clock: {int(4 * args.sys_clk_freq / 1e6)} MHz (1:4 mode)")
     print("="*60)
 
     return 0
