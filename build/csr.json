@@ -295,7 +295,7 @@
     },
     "constants": {
         "config_platform_name": "digilent_nexys4ddr",
-        "config_clock_frequency": 100000000,
+        "config_clock_frequency": 50000000,
         "config_cpu_has_interrupt": null,
         "config_cpu_reset_addr": 0,
         "config_cpu_has_dcache": null,

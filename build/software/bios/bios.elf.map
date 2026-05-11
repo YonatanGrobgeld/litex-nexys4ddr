@@ -2187,7 +2187,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x1c cmd_i2c.o
  .debug_macro   0x0000000000000000       0x58 cmd_i2c.o
  .debug_line    0x0000000000000000      0x65f cmd_i2c.o
- .debug_str     0x0000000000000000     0xaee4 cmd_i2c.o
+ .debug_str     0x0000000000000000     0xaee3 cmd_i2c.o
  .comment       0x0000000000000000       0x10 cmd_i2c.o
  .riscv.attributes
                 0x0000000000000000       0x21 cmd_i2c.o
@@ -2270,7 +2270,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x106 cmd_spiflash.o
  .debug_macro   0x0000000000000000       0xee cmd_spiflash.o
  .debug_line    0x0000000000000000      0x722 cmd_spiflash.o
- .debug_str     0x0000000000000000     0xb3bd cmd_spiflash.o
+ .debug_str     0x0000000000000000     0xb3bc cmd_spiflash.o
  .comment       0x0000000000000000       0x10 cmd_spiflash.o
  .riscv.attributes
                 0x0000000000000000       0x21 cmd_spiflash.o
@@ -2429,7 +2429,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x22 cmd_liteeth.o
  .debug_macro   0x0000000000000000       0x58 cmd_liteeth.o
  .debug_line    0x0000000000000000      0x66d cmd_liteeth.o
- .debug_str     0x0000000000000000     0xaf67 cmd_liteeth.o
+ .debug_str     0x0000000000000000     0xaf66 cmd_liteeth.o
  .comment       0x0000000000000000       0x10 cmd_liteeth.o
  .riscv.attributes
                 0x0000000000000000       0x21 cmd_liteeth.o
@@ -2508,7 +2508,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x16 cmd_litesdcard.o
  .debug_macro   0x0000000000000000       0x58 cmd_litesdcard.o
  .debug_line    0x0000000000000000      0x662 cmd_litesdcard.o
- .debug_str     0x0000000000000000     0xae9a cmd_litesdcard.o
+ .debug_str     0x0000000000000000     0xae99 cmd_litesdcard.o
  .comment       0x0000000000000000       0x10 cmd_litesdcard.o
  .riscv.attributes
                 0x0000000000000000       0x21 cmd_litesdcard.o
@@ -2585,7 +2585,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x589 cmd_litesata.o
  .debug_macro   0x0000000000000000       0x58 cmd_litesata.o
  .debug_line    0x0000000000000000      0x65c cmd_litesata.o
- .debug_str     0x0000000000000000     0xae4b cmd_litesata.o
+ .debug_str     0x0000000000000000     0xae4a cmd_litesata.o
  .comment       0x0000000000000000       0x10 cmd_litesata.o
  .riscv.attributes
                 0x0000000000000000       0x21 cmd_litesata.o
@@ -2655,7 +2655,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x4a sim_debug.o
  .debug_macro   0x0000000000000000      0x589 sim_debug.o
  .debug_line    0x0000000000000000      0x5f3 sim_debug.o
- .debug_str     0x0000000000000000     0x954c sim_debug.o
+ .debug_str     0x0000000000000000     0x954b sim_debug.o
  .comment       0x0000000000000000       0x10 sim_debug.o
  .eh_frame      0x0000000000000000       0x80 sim_debug.o
  .riscv.attributes
@@ -60523,7 +60523,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x4a ../libbase/libbase.a(console.o)
  .debug_macro   0x0000000000000000      0x589 ../libbase/libbase.a(console.o)
  .debug_line    0x0000000000000000      0x489 ../libbase/libbase.a(console.o)
- .debug_str     0x0000000000000000     0x7496 ../libbase/libbase.a(console.o)
+ .debug_str     0x0000000000000000     0x7495 ../libbase/libbase.a(console.o)
  .comment       0x0000000000000000       0x10 ../libbase/libbase.a(console.o)
  .eh_frame      0x0000000000000000       0x28 ../libbase/libbase.a(console.o)
  .riscv.attributes
@@ -60761,7 +60761,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x4a ../libbase/libbase.a(spiflash.o)
  .debug_macro   0x0000000000000000      0x589 ../libbase/libbase.a(spiflash.o)
  .debug_line    0x0000000000000000      0x452 ../libbase/libbase.a(spiflash.o)
- .debug_str     0x0000000000000000     0x740f ../libbase/libbase.a(spiflash.o)
+ .debug_str     0x0000000000000000     0x740e ../libbase/libbase.a(spiflash.o)
  .comment       0x0000000000000000       0x10 ../libbase/libbase.a(spiflash.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../libbase/libbase.a(spiflash.o)
@@ -60830,7 +60830,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x4a ../libbase/libbase.a(i2c.o)
  .debug_macro   0x0000000000000000      0x589 ../libbase/libbase.a(i2c.o)
  .debug_line    0x0000000000000000      0x56b ../libbase/libbase.a(i2c.o)
- .debug_str     0x0000000000000000     0x955f ../libbase/libbase.a(i2c.o)
+ .debug_str     0x0000000000000000     0x955e ../libbase/libbase.a(i2c.o)
  .comment       0x0000000000000000       0x10 ../libbase/libbase.a(i2c.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../libbase/libbase.a(i2c.o)
@@ -60953,7 +60953,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x4a ../libbase/libbase.a(hyperram.o)
  .debug_macro   0x0000000000000000      0x589 ../libbase/libbase.a(hyperram.o)
  .debug_line    0x0000000000000000      0x568 ../libbase/libbase.a(hyperram.o)
- .debug_str     0x0000000000000000     0x9978 ../libbase/libbase.a(hyperram.o)
+ .debug_str     0x0000000000000000     0x9977 ../libbase/libbase.a(hyperram.o)
  .comment       0x0000000000000000       0x10 ../libbase/libbase.a(hyperram.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../libbase/libbase.a(hyperram.o)
@@ -61112,7 +61112,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x34 ../liblitespi/liblitespi.a(spiflash.o)
  .debug_macro   0x0000000000000000       0x16 ../liblitespi/liblitespi.a(spiflash.o)
  .debug_line    0x0000000000000000      0x63b ../liblitespi/liblitespi.a(spiflash.o)
- .debug_str     0x0000000000000000     0xae42 ../liblitespi/liblitespi.a(spiflash.o)
+ .debug_str     0x0000000000000000     0xae41 ../liblitespi/liblitespi.a(spiflash.o)
  .comment       0x0000000000000000       0x10 ../liblitespi/liblitespi.a(spiflash.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../liblitespi/liblitespi.a(spiflash.o)
@@ -61195,7 +61195,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x589 ../liblitespi/liblitespi.a(spiram.o)
  .debug_macro   0x0000000000000000       0x34 ../liblitespi/liblitespi.a(spiram.o)
  .debug_line    0x0000000000000000      0x62e ../liblitespi/liblitespi.a(spiram.o)
- .debug_str     0x0000000000000000     0xae01 ../liblitespi/liblitespi.a(spiram.o)
+ .debug_str     0x0000000000000000     0xae00 ../liblitespi/liblitespi.a(spiram.o)
  .comment       0x0000000000000000       0x10 ../liblitespi/liblitespi.a(spiram.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../liblitespi/liblitespi.a(spiram.o)
@@ -61308,7 +61308,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x4a ../liblitedram/liblitedram.a(bist.o)
  .debug_macro   0x0000000000000000      0x589 ../liblitedram/liblitedram.a(bist.o)
  .debug_line    0x0000000000000000      0x452 ../liblitedram/liblitedram.a(bist.o)
- .debug_str     0x0000000000000000     0x7413 ../liblitedram/liblitedram.a(bist.o)
+ .debug_str     0x0000000000000000     0x7412 ../liblitedram/liblitedram.a(bist.o)
  .comment       0x0000000000000000       0x10 ../liblitedram/liblitedram.a(bist.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../liblitedram/liblitedram.a(bist.o)
@@ -61377,7 +61377,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x10 ../liblitedram/liblitedram.a(sdram_dbg.o)
  .debug_macro   0x0000000000000000      0x13f ../liblitedram/liblitedram.a(sdram_dbg.o)
  .debug_line    0x0000000000000000      0x5ad ../liblitedram/liblitedram.a(sdram_dbg.o)
- .debug_str     0x0000000000000000     0xae86 ../liblitedram/liblitedram.a(sdram_dbg.o)
+ .debug_str     0x0000000000000000     0xae85 ../liblitedram/liblitedram.a(sdram_dbg.o)
  .comment       0x0000000000000000       0x10 ../liblitedram/liblitedram.a(sdram_dbg.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../liblitedram/liblitedram.a(sdram_dbg.o)
@@ -61421,7 +61421,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x4a ../liblitedram/liblitedram.a(sdram_spd.o)
  .debug_macro   0x0000000000000000      0x589 ../liblitedram/liblitedram.a(sdram_spd.o)
  .debug_line    0x0000000000000000      0x4ef ../liblitedram/liblitedram.a(sdram_spd.o)
- .debug_str     0x0000000000000000     0x750f ../liblitedram/liblitedram.a(sdram_spd.o)
+ .debug_str     0x0000000000000000     0x750e ../liblitedram/liblitedram.a(sdram_spd.o)
  .comment       0x0000000000000000       0x10 ../liblitedram/liblitedram.a(sdram_spd.o)
  .eh_frame      0x0000000000000000       0x28 ../liblitedram/liblitedram.a(sdram_spd.o)
  .riscv.attributes
@@ -61583,7 +61583,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x589 ../libliteeth/libliteeth.a(udp.o)
  .debug_macro   0x0000000000000000       0x34 ../libliteeth/libliteeth.a(udp.o)
  .debug_line    0x0000000000000000      0x459 ../libliteeth/libliteeth.a(udp.o)
- .debug_str     0x0000000000000000     0x7534 ../libliteeth/libliteeth.a(udp.o)
+ .debug_str     0x0000000000000000     0x7533 ../libliteeth/libliteeth.a(udp.o)
  .comment       0x0000000000000000       0x10 ../libliteeth/libliteeth.a(udp.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../libliteeth/libliteeth.a(udp.o)
@@ -61653,7 +61653,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x94 ../libliteeth/libliteeth.a(tftp.o)
  .debug_macro   0x0000000000000000       0x1c ../libliteeth/libliteeth.a(tftp.o)
  .debug_line    0x0000000000000000      0xfdf ../libliteeth/libliteeth.a(tftp.o)
- .debug_str     0x0000000000000000     0x8542 ../libliteeth/libliteeth.a(tftp.o)
+ .debug_str     0x0000000000000000     0x8541 ../libliteeth/libliteeth.a(tftp.o)
  .comment       0x0000000000000000       0x10 ../libliteeth/libliteeth.a(tftp.o)
  .eh_frame      0x0000000000000000      0x11c ../libliteeth/libliteeth.a(tftp.o)
  .riscv.attributes
@@ -61693,7 +61693,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x4a ../libliteeth/libliteeth.a(mdio.o)
  .debug_macro   0x0000000000000000      0x589 ../libliteeth/libliteeth.a(mdio.o)
  .debug_line    0x0000000000000000      0x451 ../libliteeth/libliteeth.a(mdio.o)
- .debug_str     0x0000000000000000     0x7411 ../libliteeth/libliteeth.a(mdio.o)
+ .debug_str     0x0000000000000000     0x7410 ../libliteeth/libliteeth.a(mdio.o)
  .comment       0x0000000000000000       0x10 ../libliteeth/libliteeth.a(mdio.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../libliteeth/libliteeth.a(mdio.o)
@@ -61782,7 +61782,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0xc4 ../liblitesdcard/liblitesdcard.a(sdcard.o)
  .debug_macro   0x0000000000000000       0x16 ../liblitesdcard/liblitesdcard.a(sdcard.o)
  .debug_line    0x0000000000000000      0x638 ../liblitesdcard/liblitesdcard.a(sdcard.o)
- .debug_str     0x0000000000000000     0xb4e9 ../liblitesdcard/liblitesdcard.a(sdcard.o)
+ .debug_str     0x0000000000000000     0xb4e8 ../liblitesdcard/liblitesdcard.a(sdcard.o)
  .comment       0x0000000000000000       0x10 ../liblitesdcard/liblitesdcard.a(sdcard.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../liblitesdcard/liblitesdcard.a(sdcard.o)
@@ -61869,7 +61869,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0xee ../liblitesdcard/liblitesdcard.a(spisdcard.o)
  .debug_macro   0x0000000000000000       0xc4 ../liblitesdcard/liblitesdcard.a(spisdcard.o)
  .debug_line    0x0000000000000000      0x63e ../liblitesdcard/liblitesdcard.a(spisdcard.o)
- .debug_str     0x0000000000000000     0xb4a4 ../liblitesdcard/liblitesdcard.a(spisdcard.o)
+ .debug_str     0x0000000000000000     0xb4a3 ../liblitesdcard/liblitesdcard.a(spisdcard.o)
  .comment       0x0000000000000000       0x10 ../liblitesdcard/liblitesdcard.a(spisdcard.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../liblitesdcard/liblitesdcard.a(spisdcard.o)
@@ -61956,7 +61956,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0xee ../liblitesata/liblitesata.a(sata.o)
  .debug_macro   0x0000000000000000       0xc4 ../liblitesata/liblitesata.a(sata.o)
  .debug_line    0x0000000000000000      0x632 ../liblitesata/liblitesata.a(sata.o)
- .debug_str     0x0000000000000000     0xb496 ../liblitesata/liblitesata.a(sata.o)
+ .debug_str     0x0000000000000000     0xb495 ../liblitesata/liblitesata.a(sata.o)
  .comment       0x0000000000000000       0x10 ../liblitesata/liblitesata.a(sata.o)
  .riscv.attributes
                 0x0000000000000000       0x21 ../liblitesata/liblitesata.a(sata.o)
@@ -62407,7 +62407,7 @@ OUTPUT(bios.elf elf32-littleriscv)
  .riscv.attributes
                 0x0000000000000574       0x21 ../liblitedram/liblitedram.a(accessors.o)
 
-.debug_line     0x0000000000000000    0x15225
+.debug_line     0x0000000000000000    0x15217
  .debug_line    0x0000000000000000       0x8e boot-helper.o
  .debug_line    0x000000000000008e     0x1b94 boot.o
  .debug_line    0x0000000000001c22      0xc31 helpers.o
@@ -62448,9 +62448,9 @@ OUTPUT(bios.elf elf32-littleriscv)
  .debug_line    0x000000000000ece5     0x1957 ../libbase/libbase.a(memtest.o)
  .debug_line    0x000000000001063c      0xbb3 ../libbase/libbase.a(uart.o)
  .debug_line    0x00000000000111ef      0x7f8 ../libbase/libbase.a(isr.o)
- .debug_line    0x00000000000119e7     0x2894 ../liblitedram/liblitedram.a(sdram.o)
- .debug_line    0x000000000001427b      0x77d ../liblitedram/liblitedram.a(utils.o)
- .debug_line    0x00000000000149f8      0x82d ../liblitedram/liblitedram.a(accessors.o)
+ .debug_line    0x00000000000119e7     0x2886 ../liblitedram/liblitedram.a(sdram.o)
+ .debug_line    0x000000000001426d      0x77d ../liblitedram/liblitedram.a(utils.o)
+ .debug_line    0x00000000000149ea      0x82d ../liblitedram/liblitedram.a(accessors.o)
 
 .debug_info     0x0000000000000000     0xc0ed
  .debug_info    0x0000000000000000       0x26 boot-helper.o
@@ -62630,92 +62630,92 @@ OUTPUT(bios.elf elf32-littleriscv)
  .debug_aranges
                 0x0000000000000538       0x20 ../liblitedram/liblitedram.a(accessors.o)
 
-.debug_str      0x0000000000000000    0x13460
+.debug_str      0x0000000000000000    0x13480
  .debug_str     0x0000000000000000       0x9f boot-helper.o
- .debug_str     0x000000000000009f     0xb588 boot.o
-                                       0xb8f7 (size before relaxing)
- .debug_str     0x000000000000b627      0x830 helpers.o
+ .debug_str     0x000000000000009f     0xb587 boot.o
+                                       0xb8f6 (size before relaxing)
+ .debug_str     0x000000000000b626      0x830 helpers.o
                                        0x8964 (size before relaxing)
- .debug_str     0x000000000000be57      0x19f cmd_bios.o
-                                       0xb045 (size before relaxing)
- .debug_str     0x000000000000bff6      0x26d cmd_mem.o
-                                       0xb22e (size before relaxing)
- .debug_str     0x000000000000c263       0xd2 cmd_boot.o
-                                       0xaf48 (size before relaxing)
- .debug_str     0x000000000000c335      0x5a1 cmd_litedram.o
-                                       0xb5e0 (size before relaxing)
- .debug_str     0x000000000000c8d6      0x6f9 main.o
-                                       0xbd10 (size before relaxing)
- .debug_str     0x000000000000cfcf       0x59 crt0.o
+ .debug_str     0x000000000000be56      0x19f cmd_bios.o
+                                       0xb044 (size before relaxing)
+ .debug_str     0x000000000000bff5      0x26d cmd_mem.o
+                                       0xb22d (size before relaxing)
+ .debug_str     0x000000000000c262       0xd2 cmd_boot.o
+                                       0xaf47 (size before relaxing)
+ .debug_str     0x000000000000c334      0x5a1 cmd_litedram.o
+                                       0xb5df (size before relaxing)
+ .debug_str     0x000000000000c8d5      0x6f9 main.o
+                                       0xbd0f (size before relaxing)
+ .debug_str     0x000000000000cfce       0x59 crt0.o
                                          0x98 (size before relaxing)
- .debug_str     0x000000000000d028      0x139 complete.o
+ .debug_str     0x000000000000d027      0x139 complete.o
                                        0x8820 (size before relaxing)
- .debug_str     0x000000000000d161      0xcdd readline.o
+ .debug_str     0x000000000000d160      0xcdd readline.o
                                        0x92aa (size before relaxing)
- .debug_str     0x000000000000de3e       0x68 ../libc/libc.a(memcpy-asm.S.o)
+ .debug_str     0x000000000000de3d       0x68 ../libc/libc.a(memcpy-asm.S.o)
                                          0x76 (size before relaxing)
- .debug_str     0x000000000000dea6       0x34 ../libc/libc.a(memmove.S.o)
+ .debug_str     0x000000000000dea5       0x34 ../libc/libc.a(memmove.S.o)
                                          0x73 (size before relaxing)
- .debug_str     0x000000000000deda       0x33 ../libc/libc.a(strcmp.S.o)
+ .debug_str     0x000000000000ded9       0x33 ../libc/libc.a(strcmp.S.o)
                                          0x72 (size before relaxing)
- .debug_str     0x000000000000df0d      0x3ff ../libc/libc.a(strcpy.c.o)
+ .debug_str     0x000000000000df0c      0x3ff ../libc/libc.a(strcpy.c.o)
                                        0x67f0 (size before relaxing)
- .debug_str     0x000000000000e30c       0x33 ../libc/libc.a(strlen.c.o)
+ .debug_str     0x000000000000e30b       0x33 ../libc/libc.a(strlen.c.o)
                                        0x67f8 (size before relaxing)
- .debug_str     0x000000000000e33f      0x773 ../libc/libc.a(libc_ctype_ctype_.c.o)
+ .debug_str     0x000000000000e33e      0x773 ../libc/libc.a(libc_ctype_ctype_.c.o)
                                        0x8fc2 (size before relaxing)
- .debug_str     0x000000000000eab2      0x4c8 ../libc/libc.a(libc_errno_errno.c.o)
+ .debug_str     0x000000000000eab1      0x4c8 ../libc/libc.a(libc_errno_errno.c.o)
                                        0x4544 (size before relaxing)
- .debug_str     0x000000000000ef7a       0xc1 ../libc/libc.a(libc_string_strncmp.c.o)
+ .debug_str     0x000000000000ef79       0xc1 ../libc/libc.a(libc_string_strncmp.c.o)
                                        0x6c79 (size before relaxing)
- .debug_str     0x000000000000f03b       0x65 ../libc/libc.a(libc_string_strncpy.c.o)
+ .debug_str     0x000000000000f03a       0x65 ../libc/libc.a(libc_string_strncpy.c.o)
                                        0x6cbc (size before relaxing)
- .debug_str     0x000000000000f0a0       0x45 ../libc/libc.a(libc_string_strnlen.c.o)
+ .debug_str     0x000000000000f09f       0x45 ../libc/libc.a(libc_string_strnlen.c.o)
                                        0x5e54 (size before relaxing)
- .debug_str     0x000000000000f0e5      0xa88 ../libc/libc.a(libc_tinystdio_fgetc.c.o)
+ .debug_str     0x000000000000f0e4      0xa88 ../libc/libc.a(libc_tinystdio_fgetc.c.o)
                                        0x8c52 (size before relaxing)
- .debug_str     0x000000000000fb6d       0x2e ../libc/libc.a(libc_tinystdio_fputc.c.o)
+ .debug_str     0x000000000000fb6c       0x2e ../libc/libc.a(libc_tinystdio_fputc.c.o)
                                        0x8c35 (size before relaxing)
- .debug_str     0x000000000000fb9b       0x2e ../libc/libc.a(libc_tinystdio_fputs.c.o)
+ .debug_str     0x000000000000fb9a       0x2e ../libc/libc.a(libc_tinystdio_fputs.c.o)
                                        0x8c35 (size before relaxing)
- .debug_str     0x000000000000fbc9       0x59 ../libc/libc.a(libc_tinystdio_printf.c.o)
+ .debug_str     0x000000000000fbc8       0x59 ../libc/libc.a(libc_tinystdio_printf.c.o)
                                        0x6aaa (size before relaxing)
- .debug_str     0x000000000000fc22       0x2d ../libc/libc.a(libc_tinystdio_puts.c.o)
+ .debug_str     0x000000000000fc21       0x2d ../libc/libc.a(libc_tinystdio_puts.c.o)
                                        0x8c33 (size before relaxing)
- .debug_str     0x000000000000fc4f      0xb7f ../libc/libc.a(libc_tinystdio_strtoul.c.o)
+ .debug_str     0x000000000000fc4e      0xb7f ../libc/libc.a(libc_tinystdio_strtoul.c.o)
                                        0x99c1 (size before relaxing)
- .debug_str     0x00000000000107ce     0x1371 ../libc/libc.a(libc_tinystdio_vfiprintf.c.o)
+ .debug_str     0x00000000000107cd     0x1371 ../libc/libc.a(libc_tinystdio_vfiprintf.c.o)
                                        0xb099 (size before relaxing)
- .debug_str     0x0000000000011b3f       0x8e ../libc/libc.a(_libc.a)
+ .debug_str     0x0000000000011b3e       0xaf ../libc/libc.a(_libc.a)
                                        0x95c9 (size before relaxing)
- .debug_str     0x0000000000011bcd      0x4c3 ../libcompiler_rt/libcompiler_rt.a(udivmoddi4.o)
+ .debug_str     0x0000000000011bed      0x4c3 ../libcompiler_rt/libcompiler_rt.a(udivmoddi4.o)
                                        0x6ca9 (size before relaxing)
- .debug_str     0x0000000000012090       0x91 ../libcompiler_rt/libcompiler_rt.a(clzsi2.o)
+ .debug_str     0x00000000000120b0       0x91 ../libcompiler_rt/libcompiler_rt.a(clzsi2.o)
                                        0x6c5a (size before relaxing)
- .debug_str     0x0000000000012121       0x8a ../libcompiler_rt/libcompiler_rt.a(ctzsi2.o)
+ .debug_str     0x0000000000012141       0x8a ../libcompiler_rt/libcompiler_rt.a(ctzsi2.o)
                                        0x6c5a (size before relaxing)
- .debug_str     0x00000000000121ab       0x8b ../libcompiler_rt/libcompiler_rt.a(udivdi3.o)
+ .debug_str     0x00000000000121cb       0x8b ../libcompiler_rt/libcompiler_rt.a(udivdi3.o)
                                        0x6c62 (size before relaxing)
- .debug_str     0x0000000000012236       0x8b ../libcompiler_rt/libcompiler_rt.a(umoddi3.o)
+ .debug_str     0x0000000000012256       0x8b ../libcompiler_rt/libcompiler_rt.a(umoddi3.o)
                                        0x6c62 (size before relaxing)
- .debug_str     0x00000000000122c1       0x98 ../libbase/libbase.a(crc16.o)
+ .debug_str     0x00000000000122e1       0x98 ../libbase/libbase.a(crc16.o)
                                        0x2473 (size before relaxing)
- .debug_str     0x0000000000012359       0xfe ../libbase/libbase.a(crc32.o)
+ .debug_str     0x0000000000012379       0xfe ../libbase/libbase.a(crc32.o)
                                        0x24fa (size before relaxing)
- .debug_str     0x0000000000012457       0x70 ../libbase/libbase.a(system.o)
-                                       0x75f7 (size before relaxing)
- .debug_str     0x00000000000124c7      0x2d1 ../libbase/libbase.a(memtest.o)
-                                       0xb459 (size before relaxing)
- .debug_str     0x0000000000012798      0x224 ../libbase/libbase.a(uart.o)
-                                       0x768b (size before relaxing)
- .debug_str     0x00000000000129bc       0x82 ../libbase/libbase.a(isr.o)
-                                       0x956e (size before relaxing)
- .debug_str     0x0000000000012a3e      0x854 ../liblitedram/liblitedram.a(sdram.o)
-                                       0xbeac (size before relaxing)
- .debug_str     0x0000000000013292       0x63 ../liblitedram/liblitedram.a(utils.o)
-                                       0x98ca (size before relaxing)
- .debug_str     0x00000000000132f5      0x16b ../liblitedram/liblitedram.a(accessors.o)
-                                       0x98ed (size before relaxing)
+ .debug_str     0x0000000000012477       0x70 ../libbase/libbase.a(system.o)
+                                       0x75f6 (size before relaxing)
+ .debug_str     0x00000000000124e7      0x2d1 ../libbase/libbase.a(memtest.o)
+                                       0xb458 (size before relaxing)
+ .debug_str     0x00000000000127b8      0x224 ../libbase/libbase.a(uart.o)
+                                       0x768a (size before relaxing)
+ .debug_str     0x00000000000129dc       0x82 ../libbase/libbase.a(isr.o)
+                                       0x956d (size before relaxing)
+ .debug_str     0x0000000000012a5e      0x854 ../liblitedram/liblitedram.a(sdram.o)
+                                       0xbeab (size before relaxing)
+ .debug_str     0x00000000000132b2       0x63 ../liblitedram/liblitedram.a(utils.o)
+                                       0x98c9 (size before relaxing)
+ .debug_str     0x0000000000013315      0x16b ../liblitedram/liblitedram.a(accessors.o)
+                                       0x98ec (size before relaxing)
 
 .debug_loc      0x0000000000000000     0x85fe
  .debug_loc     0x0000000000000000      0xd33 boot.o
@@ -62755,7 +62755,7 @@ OUTPUT(bios.elf elf32-littleriscv)
  .debug_loc     0x00000000000081fb      0x16c ../liblitedram/liblitedram.a(utils.o)
  .debug_loc     0x0000000000008367      0x297 ../liblitedram/liblitedram.a(accessors.o)
 
-.debug_ranges   0x0000000000000000     0x1690
+.debug_ranges   0x0000000000000000     0x1678
  .debug_ranges  0x0000000000000000      0x3c0 boot.o
  .debug_ranges  0x00000000000003c0       0x28 helpers.o
  .debug_ranges  0x00000000000003e8       0x28 main.o
@@ -62778,8 +62778,8 @@ OUTPUT(bios.elf elf32-littleriscv)
  .debug_ranges  0x0000000000000870      0x238 ../libbase/libbase.a(memtest.o)
  .debug_ranges  0x0000000000000aa8       0xd0 ../libbase/libbase.a(uart.o)
  .debug_ranges  0x0000000000000b78       0x80 ../libbase/libbase.a(isr.o)
- .debug_ranges  0x0000000000000bf8      0xa10 ../liblitedram/liblitedram.a(sdram.o)
- .debug_ranges  0x0000000000001608       0x88 ../liblitedram/liblitedram.a(accessors.o)
+ .debug_ranges  0x0000000000000bf8      0x9f8 ../liblitedram/liblitedram.a(sdram.o)
+ .debug_ranges  0x00000000000015f0       0x88 ../liblitedram/liblitedram.a(accessors.o)
 
 .debug_macro    0x0000000000000000     0x6d8c
  .debug_macro   0x0000000000000000      0x283 boot.o

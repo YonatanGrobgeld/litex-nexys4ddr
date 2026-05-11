@@ -4,10 +4,6 @@
 create_project -force -name digilent_nexys4ddr -part xc7a100tcsg324-1
 set_msg_config -id {Common 17-55} -new_severity {Warning}
 
-# Set working directory to gateware directory so init files are found
-set gateware_dir [file dirname [info script]]
-cd $gateware_dir
-
 # Add project commands
 
 
@@ -15,9 +11,6 @@ cd $gateware_dir
 
 read_verilog {/home/yonatang/litex-project/third_party/litex/pythondata-cpu-vexriscv/pythondata_cpu_vexriscv/verilog/VexRiscv.v}
 read_verilog {/home/yonatang/litex-project/build/gateware/digilent_nexys4ddr.v}
-
-# Add memory init files as project data files so Vivado can find them during synthesis
-add_files -fileset sim_1 {digilent_nexys4ddr_rom.init digilent_nexys4ddr_sram.init}
 
 # Add EDIFs
 
