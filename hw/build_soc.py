@@ -3,45 +3,42 @@ import argparse
 import os
 import sys
 
-from migen import ClockDomain, Module, Signal
+from migen import ClockDomain, Module
 
 from litex.soc.integration.builder import Builder, builder_args, builder_argdict
 from litex.soc.integration.soc_core import SoCCore, soc_core_args, soc_core_argdict
-from litex.soc.cores.clock import S7PLL, S7MMCM, S7IDELAYCTRL
+from litex.soc.cores.clock import S7PLL
 
 from litex_boards.platforms import digilent_nexys4ddr
 
 from litedram.phy import s7ddrphy
 from litedram.modules import MT47H64M16
 
+# Import accelerator peripheral wrappers
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), os.pardir, "sw"))
+from exp_lut.litex.exp_lut_periph import ExpLUTPeriph
+from gemv.litex.gemv_periph import GEMVPeriph
+
 
 class _CRG(Module):
     def __init__(self, platform, sys_clk_freq):
-        self.rst = Signal()
         self.clock_domains.cd_sys = cd_sys = ClockDomain()
-        self.clock_domains.cd_sys2x = cd_sys2x = ClockDomain()
-        self.clock_domains.cd_sys2x_dqs = cd_sys2x_dqs = ClockDomain(reset_less=True)
-        self.clock_domains.cd_iodelay = cd_iodelay = ClockDomain()
+        self.clock_domains.cd_sys4x = cd_sys4x = ClockDomain()
+        self.clock_domains.cd_sys4x_dqs = cd_sys4x_dqs = ClockDomain(reset_less=True)
 
         clk100 = platform.request("clk100")
         rst = ~platform.request("cpu_reset")
 
-        self.submodules.pll = pll = S7MMCM(speedgrade=-1)
-        self.comb += pll.reset.eq(rst | self.rst)
-
+        self.submodules.pll = pll = S7PLL(speedgrade=-1)
         pll.register_clkin(clk100, 100e6)
         pll.create_clkout(cd_sys, sys_clk_freq)
-        pll.create_clkout(cd_sys2x, 2 * sys_clk_freq)
-        pll.create_clkout(cd_sys2x_dqs, 2 * sys_clk_freq, phase=90)
-        pll.create_clkout(cd_iodelay, 200e6)
-        
-        platform.add_false_path_constraints(self.cd_sys.clk, pll.clkin) # Ignore sys_clk to pll.clkin path created by SoC's rst.
-
-        self.submodules.idelayctrl = S7IDELAYCTRL(self.cd_iodelay)
+        pll.create_clkout(cd_sys4x, 4 * sys_clk_freq)
+        pll.create_clkout(cd_sys4x_dqs, 4 * sys_clk_freq, phase=90)
+        pll.reset.eq(rst)
 
 
 class BaseSoC(SoCCore):
-    def __init__(self, platform, sys_clk_freq=int(75e6), 
+    def __init__(self, platform, sys_clk_freq, 
                  rom_size=None, l2_size=None, 
                  icache_size=None, dcache_size=None, 
                  **kwargs):
@@ -81,22 +78,28 @@ class BaseSoC(SoCCore):
         if l2_size is None:
             l2_size = 128 * 1024
         
-        # Create DDR2 PHY for Artix-7 with appropriate 2:1 ratio (Reference Target Specs)
+        # Create DDR2 PHY for Artix-7 with appropriate 4:1 ratio
+        # Lower DDR2 speed for initial bring-up: 50MHz sys_clk, 1:4 ratio (200MHz DDR clock)
         self.ddrphy = s7ddrphy.A7DDRPHY(
             pads=platform.request("ddram"),
             memtype="DDR2",
-            nphases=2,
-            sys_clk_freq=sys_clk_freq
+            nphases=4,
+            sys_clk_freq=50e6,  # Lowered from 100e6
+            iodelay_clk_freq=200e6
         )
         
         # Add DDR2 SDRAM as main system RAM
         self.add_sdram(
             "sdram",
             phy=self.ddrphy,
-            module=MT47H64M16(sys_clk_freq, "1:2"),
+            module=MT47H64M16(50e6, "1:4"),  # Match lowered sys_clk_freq
             size=0x08000000,  # 128 MB
             l2_cache_size=l2_size
         )
+
+    # Add accelerator peripherals; CSRs are collected automatically via AutoCSR.
+    self.submodules.exp_lut = ExpLUTPeriph(platform, sys_clk_freq)
+    self.submodules.gemv = GEMVPeriph(platform, sys_clk_freq)
 
 
 def _default_sys_clk_freq(platform):
@@ -121,9 +124,9 @@ def main() -> int:
 
     parser.add_argument(
         "--sys-clk-freq",
-        default=75e6, # Default to 75 MHz for safe DDR2 operation
+        default=_default_sys_clk_freq(platform),
         type=float,
-        help="System clock frequency in Hz (default: 75 MHz).",
+        help="System clock frequency in Hz (default: 100 MHz).",
     )
 
     parser.add_argument(
@@ -177,9 +180,10 @@ def main() -> int:
     if dcache_size not in [8 * 1024, 16 * 1024]:
         raise ValueError(f"D-Cache size must be 8 KiB or 16 KiB, got {dcache_size // 1024} KiB")
     
+    # Force sys_clk_freq to 50MHz for safer DDR bring-up
     soc = BaseSoC(
         platform=platform,
-        sys_clk_freq=int(args.sys_clk_freq),
+        sys_clk_freq=int(50e6),
         rom_size=rom_size,
         l2_size=l2_size,
         icache_size=icache_size,
@@ -189,15 +193,10 @@ def main() -> int:
 
     builder = Builder(soc, **builder_argdict(args))
     # Always skip Vivado synthesis on Linux
-    print(f"[DEBUG] compile_software: {builder.compile_software}")
-    print(f"[DEBUG] compile_gateware: {builder.compile_gateware}")
     try:
         builder.build()
         print("[INFO] Vivado synthesis and bitstream generation completed.")
     except Exception as e:
-        print(f"[ERROR] Build failed with: {e}")
-        import traceback
-        traceback.print_exc()
         if sys.platform.startswith("linux") and (
             "Vivado" in str(e) or "Unable to find or source Vivado" in str(e) or "OSError" in str(type(e))):
             print("\n[INFO] Vivado synthesis is skipped on Linux due to missing Vivado toolchain.")
@@ -231,6 +230,7 @@ def main() -> int:
     print(f"\nSystem Configuration:")
     print(f"  CPU: VexRiscv (standard variant)")
     print(f"  System Clock: {int(args.sys_clk_freq / 1e6)} MHz")
+    print(f"  DDR Clock: {int(4 * args.sys_clk_freq / 1e6)} MHz (1:4 mode)")
     print("="*60)
 
     return 0
