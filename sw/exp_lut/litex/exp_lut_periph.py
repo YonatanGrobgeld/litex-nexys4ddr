@@ -1,35 +1,33 @@
 #!/usr/bin/env python3
-"""
-LiteX peripheral wrapper for Exp LUT (Exponential Lookup Table) accelerator.
-
-This module provides:
-- CSR registers for index (write) and value (read)
-- Memory-mapped interface to the hardware Exp LUT core
-- Auto-generated CSR header functions: exp_lut_index_write(), exp_lut_value_read()
-"""
-
+import os
 from litex.soc.interconnect.csr import AutoCSR, CSRStorage, CSRStatus
 from migen import *
 
+_RTL_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          "..", "..", "..", "hw", "rtl", "exp_lut.v")
+
 
 class ExpLUTPeriph(Module, AutoCSR):
-    """Exp LUT peripheral with CSR interface."""
-    
+    """Exp LUT peripheral: CPU writes index, reads exp(index) in Q10 fixed-point."""
+
     def __init__(self, platform=None, sys_clk_freq=None):
-        """
-        Initialize Exp LUT peripheral.
-        
-        Args:
-            platform: LiteX platform object (may be None if not using board constraints)
-            sys_clk_freq: System clock frequency (unused, present for consistency)
-        """
-        # CSR registers
+        if platform is not None:
+            platform.add_source(_RTL_FILE)
+
+        # CSR registers (32-bit bus → 4 bytes each)
+        # Generated accessors: exp_lut_index_write() / exp_lut_value_read()
         self.index = CSRStorage(16, name="index")
         self.value = CSRStatus(16, name="value")
-        
-        # Internal computation: read from index, compute, output to value
-        # In real hardware, this would interface with exp_lut.v RTL
-        # For now, a simple combinational path
-        self.comb += [
-            self.value.status.eq(self.index.storage),  # Placeholder: output = input
-        ]
+
+        _value = Signal(16)
+
+        # exp_lut.v: index[4:0] → 5-bit signed (0=exp(0), -15=exp(-15))
+        # Uses index[3:0] internally as LUT address; bit[4] is the sign.
+        self.specials += Instance("exp_lut",
+            i_clk=ClockSignal(),
+            i_reset=ResetSignal(),
+            i_index=self.index.storage[:5],
+            o_value=_value,
+        )
+
+        self.comb += self.value.status.eq(_value)

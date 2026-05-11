@@ -1,72 +1,82 @@
 #!/usr/bin/env python3
-"""
-LiteX peripheral wrapper for GEMV (General Matrix-Vector multiply) accelerator.
-
-This module provides:
-- CSR registers for control (start, reset) and status (done, error)
-- Data ports for matrix/vector write and result read
-- Auto-generated CSR header functions:
-  - gemv_ctrl_write(), gemv_ctrl_read()
-  - gemv_status_read()
-  - gemv_addr_write(), gemv_addr_read()
-  - gemv_data_write(), gemv_data_read()
-"""
-
+import os
 from litex.soc.interconnect.csr import AutoCSR, CSRStorage, CSRStatus
 from migen import *
 
+_RTL_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          "..", "..", "..", "hw", "rtl", "gemv_core.v")
+
 
 class GEMVPeriph(Module, AutoCSR):
-    """GEMV (matrix-vector multiply) peripheral with CSR interface."""
-    
+    """GEMV (Y = W*X + b) peripheral backed by gemv_core.v.
+
+    CSR register names match the GEMV_USE_LITEX_CSR driver macros in gemv.c:
+      ctrl   → gemv_ctrl_write/read      (CTRL bits: [0]=START [3]=CLEAR_DONE
+                                           [4]=LEN_64 [5]=OUT_DIM_64 [6]=BIAS_EN)
+      x_in   → gemv_x_in_write           (int8 streamed in, one byte per write)
+      w_in   → gemv_w_in_write           (int8 streamed in, row-major)
+      b_in   → gemv_b_in_write           (int32, one per output dimension)
+      y_out  → gemv_y_out_read           (int32 result, pointer advanced by y_next)
+      status → gemv_status_read          ([0]=busy [1]=done)
+      y_next → gemv_y_next_write         (write any value → advance Y read pointer)
+    """
+
     def __init__(self, platform=None, sys_clk_freq=None):
-        """
-        Initialize GEMV peripheral.
-        
-        Args:
-            platform: LiteX platform object (may be None if not using board constraints)
-            sys_clk_freq: System clock frequency (unused, present for consistency)
-        """
-        # Control register: bit[0]=start, bit[1]=reset
-        self.ctrl = CSRStorage(2, name="ctrl")
-        
-        # Status register: bit[0]=done, bit[1]=error, bit[15:2]=unused
-        self.status = CSRStatus(16, name="status")
-        
-        # Address register: select matrix/vector row/column for data access
-        self.addr = CSRStorage(16, name="addr")
-        
-        # Data input register: write matrix/vector values
-        self.data_in = CSRStorage(32, name="data_in")
-        
-        # Data output register: read computation results
-        self.data_out = CSRStatus(32, name="data_out")
-        
-        # Internal state
-        self.done = Signal(reset=0)
-        self.error = Signal(reset=0)
-        self.busy = Signal(reset=0)
-        
-        # Simple state machine for demonstration
-        # In real hardware, this would interface with the actual GEMV core
+        if platform is not None:
+            platform.add_source(_RTL_FILE)
+
+        # --- CSR registers ---
+        self.ctrl   = CSRStorage(8,  name="ctrl")
+        self.x_in   = CSRStorage(8,  name="x_in")
+        self.w_in   = CSRStorage(8,  name="w_in")
+        self.b_in   = CSRStorage(32, name="b_in")
+        self.y_out  = CSRStatus(32,  name="y_out")
+        self.status = CSRStatus(8,   name="status")
+        self.y_next = CSRStorage(8,  name="y_next")
+
+        # --- Internal signals wired to gemv_core ports ---
+        busy      = Signal()
+        done      = Signal()
+        y_rd_data = Signal(32)
+
+        # Pulse signals: go high for exactly one clock cycle on CSR write
+        start      = Signal()
+        clear_done = Signal()
+
         self.comb += [
-            self.status.status.eq(Cat(self.done, self.error)),
-            self.data_out.status.eq(0x12345678),  # Placeholder output
+            # START and CLEAR_DONE are one-cycle pulses triggered by ctrl write
+            start.eq(self.ctrl.re & self.ctrl.storage[0]),
+            clear_done.eq(self.ctrl.re & self.ctrl.storage[3]),
+            # Status readback
+            self.status.status[0].eq(busy),
+            self.status.status[1].eq(done),
+            # Y result readback
+            self.y_out.status.eq(y_rd_data),
         ]
-        
-        # On write to ctrl[0] (start), set busy and done signals
-        # (In real hardware, this would trigger the GEMV computation)
-        self.sync += [
-            If(self.ctrl.re & self.ctrl.storage[0],  # start bit written
-                self.busy.eq(1),
-                self.done.eq(0),
-            ).Elif(self.busy,
-                self.busy.eq(0),
-                self.done.eq(1),
-            ),
-            If(self.ctrl.re & self.ctrl.storage[1],  # reset bit written
-                self.done.eq(0),
-                self.error.eq(0),
-                self.busy.eq(0),
-            ),
-        ]
+
+        self.specials += Instance("gemv_core",
+            p_MAX_LEN=64,
+            p_MAX_OUT=64,
+            p_W_ADDR_BITS=12,
+            i_clk=ClockSignal(),
+            i_reset=ResetSignal(),
+            # Streaming write ports — write-enable is the CSR write-strobe (.re)
+            i_x_wr_en=self.x_in.re,
+            i_x_wr_data=self.x_in.storage,
+            i_w_wr_en=self.w_in.re,
+            i_w_wr_data=self.w_in.storage,
+            i_b_wr_en=self.b_in.re,
+            i_b_wr_data=self.b_in.storage,
+            # Control (config bits latched in ctrl.storage; pulses from .re)
+            i_start=start,
+            i_len_64=self.ctrl.storage[4],
+            i_out_dim_64=self.ctrl.storage[5],
+            i_bias_en=self.ctrl.storage[6],
+            # Status outputs
+            o_busy=busy,
+            o_done=done,
+            i_clear_done=clear_done,
+            # Y read: writing y_next advances the internal read pointer
+            i_y_rd_en=self.y_next.re,
+            o_y_rd_data=y_rd_data,
+        )
