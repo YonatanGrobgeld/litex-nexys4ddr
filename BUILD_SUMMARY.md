@@ -1,10 +1,29 @@
-# LiteX Nexys4 DDR TinyML SoC - Build Summary
+# LiteX Nexys4 DDR TinyML SoC - Build Summary (v2)
 
 ## ✅ Build Completed Successfully
 
-**Date**: 11 February 2026
-**Build Time**: ~5 minutes
-**Status**: Ready for Vivado bitstream generation
+**Date**: 18 May 2026 (v2 — DOT8 fix + packed GEMV)
+**Status**: Bitstream generated, programmed, and measured
+
+### Headline result (full system, end-to-end inference)
+
+`ENC_CKSUM` bit-identical with baseline across all 10 demo samples (correctness verified):
+
+| Mode | CYCLES @ 100 MHz | Time | Speedup |
+|---|---|---|---|
+| Baseline (no accelerators) | 75,900,400 | **759.00 ms** | 1.00× |
+| accel_all v1 (byte-wide GEMV) | 19,067,129 | 190.67 ms | 3.98× |
+| **accel_all v2** (this build) | **15,755,300** | **157.55 ms** | **4.82×** |
+
+### Two key changes this build over v1
+
+1. **DOT8 CPU integration fix in `build_soc.py`.** The bundled standard `VexRiscv.v` and our DOT8-customised `VexRiscv_Dot8.v` both define a Verilog module named `VexRiscv`. v1 used plain `platform.add_source()` which left both in the source list; Vivado then silently picked the standard one and dropped DOT8. v2 calls `self.cpu.use_external_variant(VexRiscv_Dot8.v)` — this sets `external_variant=True` inside LiteX, which causes `do_finalize()` to skip adding the bundled source, leaving only our DOT8 file.
+
+2. **GEMV peripheral v2.** `X_IN` / `W_IN` CSRs widened from 8-bit to 32-bit (4 packed signed int8 lanes per write), and the internal compute path performs 4 parallel signed-int8 MACs per cycle (was 1-lane). A 32×32 matvec runs in 256 hardware cycles instead of 1024, and the CPU pushes 4× less data through the CSR bus.
+
+### Timing closure
+
+Worst-case slack at 100 MHz is **−6.3 ns** (the 4-input adder tree in the new GEMV MAC). The bitstream programs and runs correctly at room temperature with bit-identical `ENC_CKSUM`, but is not timing-safe in the formal sense. Production fix: pipeline the dot4 stage (one extra cycle) or drop `sys_clk_freq` to ~75 MHz.
 
 ---
 

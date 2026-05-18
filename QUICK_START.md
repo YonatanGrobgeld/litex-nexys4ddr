@@ -1,9 +1,11 @@
-# Quick Start - LiteX Nexys4 DDR TinyML Build
+# Quick Start - LiteX Nexys4 DDR TinyML Build (v2)
 
-## ✅ Status: Build Complete - Ready for Windows Vivado
+## ✅ Status: v2 bitstream built and measured
 
-**Date**: 11 February 2026  
-**All Files**: `/home/yonatang/litex-project/build/gateware/`
+**Date**: 18 May 2026
+**All Files**: `/home/yonatang/litex-project_v2/hw/build/gateware/`
+
+**v2 vs v1 in one line:** DOT8 CPU integration fix in `build_soc.py` (now calls `cpu.use_external_variant()`) + GEMV widened to 32-bit packed data path with 4-lane parallel MAC. Final speedup: **4.82×** vs honest software baseline (759 ms → 157.55 ms, measured via on-chip timer; `ENC_CKSUM` bit-identical across all modes).
 
 ---
 
