@@ -105,10 +105,16 @@ class BaseSoC(SoCCore):
             l2_cache_size=l2_size
         )
 
-        # If VexRiscv_Dot8.v exists, add it as an extra source so Vivado uses the DOT8 CPU.
+        # If VexRiscv_Dot8.v exists, tell LiteX to use it INSTEAD of the bundled
+        # standard VexRiscv source.  Plain platform.add_source() doesn't work
+        # because both files define module VexRiscv — Vivado then picks one
+        # arbitrarily (and historically picks the bundled standard, dropping DOT8).
+        # use_external_variant() sets self.external_variant=True, which causes
+        # do_finalize() in the LiteX VexRiscv core to SKIP add_sources(), so only
+        # our DOT8 file is fed to Vivado.
         if _use_dot8_cpu:
-            platform.add_source(_dot8_v)
-            print("[INFO] DOT8 CPU variant found — VexRiscv_Dot8.v added as source.")
+            self.cpu.use_external_variant(_dot8_v)
+            print("[INFO] DOT8 CPU variant found — using VexRiscv_Dot8.v as the VexRiscv source.")
         else:
             print("[WARN] VexRiscv_Dot8.v not found in hw/rtl/. Using standard CPU (no DOT8).")
             print("       Run Step 1-4 in the accel_all guide to build it.")

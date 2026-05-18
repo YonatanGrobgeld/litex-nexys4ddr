@@ -13,12 +13,18 @@ class GEMVPeriph(Module, AutoCSR):
     CSR register names match the GEMV_USE_LITEX_CSR driver macros in gemv.c:
       ctrl   → gemv_ctrl_write/read      (CTRL bits: [0]=START [3]=CLEAR_DONE
                                            [4]=LEN_64 [5]=OUT_DIM_64 [6]=BIAS_EN)
-      x_in   → gemv_x_in_write           (int8 streamed in, one byte per write)
-      w_in   → gemv_w_in_write           (int8 streamed in, row-major)
+      x_in   → gemv_x_in_write           (32-bit: 4 packed int8 lanes per write)
+      w_in   → gemv_w_in_write           (32-bit: 4 packed int8 lanes per write)
       b_in   → gemv_b_in_write           (int32, one per output dimension)
       y_out  → gemv_y_out_read           (int32 result, pointer advanced by y_next)
       status → gemv_status_read          ([0]=busy [1]=done)
       y_next → gemv_y_next_write         (write any value → advance Y read pointer)
+
+    V2 optimisations (vs v1):
+      - x_in and w_in are now 32-bit (was 8-bit), accept 4 packed lanes per write.
+        Cuts CPU↔GEMV MMIO traffic by 4x for X and W loading.
+      - gemv_core.v internally does a 4-lane MAC per cycle (was 1 lane).
+        Cuts compute time by 4x.
     """
 
     def __init__(self, platform=None, sys_clk_freq=None):
@@ -27,8 +33,8 @@ class GEMVPeriph(Module, AutoCSR):
 
         # --- CSR registers ---
         self.ctrl   = CSRStorage(8,  name="ctrl")
-        self.x_in   = CSRStorage(8,  name="x_in")
-        self.w_in   = CSRStorage(8,  name="w_in")
+        self.x_in   = CSRStorage(32, name="x_in")
+        self.w_in   = CSRStorage(32, name="w_in")
         self.b_in   = CSRStorage(32, name="b_in")
         self.y_out  = CSRStatus(32,  name="y_out")
         self.status = CSRStatus(8,   name="status")
@@ -57,7 +63,7 @@ class GEMVPeriph(Module, AutoCSR):
         self.specials += Instance("gemv_core",
             p_MAX_LEN=64,
             p_MAX_OUT=64,
-            p_W_ADDR_BITS=12,
+            p_W_ADDR_BITS=10,    # 1024 words (64*64/4) for the new packed memory
             i_clk=ClockSignal(),
             i_reset=ResetSignal(),
             # Streaming write ports — write-enable is the CSR write-strobe (.re)
