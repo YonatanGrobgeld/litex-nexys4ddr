@@ -76,5 +76,6 @@ The BIOS loads `firmware.bin` into DDR2 RAM and boots it. Firmware waits for `s`
 - `hw/build/` — Generated RTL, BIOS binary, and constraints (not hand-edited)
 - `sw/exp_lut/litex/` — ExpLUT LiteX CSR peripheral wrapper
 - `sw/gemv/litex/` — GEMV LiteX CSR peripheral wrapper
-- `docs/` — Architecture notes and documentation
+- `docs/` — Build instructions, FPGA programming guide, memory configuration
+- `.agent/notes/` — Archived development working notes (not project documentation)
 - `scripts/` — Utility scripts
