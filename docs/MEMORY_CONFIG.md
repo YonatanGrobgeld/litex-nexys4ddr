@@ -174,7 +174,6 @@ After building with custom memory configuration:
 
 - [ ] Check `build/csr.json` for correct DDR base address (should be `0x80000000`)
 - [ ] Verify ROM size in `build/csr.csv` matches configured size
-- [ ] Review timing report in `build/gateware/digilent_nexys4ddr_timing.rpt` (WNS > 0 for closure)
 - [ ] Confirm BRAM usage in `build/gateware/digilent_nexys4ddr_utilization_synth.rpt` (<15%)
 - [ ] Test UART communication at 115200 baud after FPGA programming
 - [ ] Run BIOS memory test: `mtest` in UART console (if implemented)
