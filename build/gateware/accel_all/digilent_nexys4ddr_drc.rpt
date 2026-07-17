@@ -1,0 +1,419 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Fri Jul 17 17:44:38 2026
+| Host         : DESKTOP-6JLD9LJ running 64-bit major release  (build 9200)
+| Command      : report_drc -file digilent_nexys4ddr_drc.rpt
+| Design       : digilent_nexys4ddr
+| Device       : xc7a100tcsg324-1
+| Speed File   : -1
+| Design State : Fully Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: digilent_nexys4ddr
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max checks: <unlimited>
+             Checks found: 74
++-------------+----------+-----------------------------------------------------+--------+
+| Rule        | Severity | Description                                         | Checks |
++-------------+----------+-----------------------------------------------------+--------+
+| BUFC-1      | Warning  | Input Buffer Connections                            | 2      |
+| CFGBVS-1    | Warning  | Missing CFGBVS and CONFIG_VOLTAGE Design Properties | 1      |
+| DPIP-1      | Warning  | Input pipelining                                    | 8      |
+| DPOP-2      | Warning  | MREG Output pipelining                              | 3      |
+| PLBUFGOPT-1 | Warning  | Non-Optimal connections to BUFG                     | 1      |
+| REQP-1580   | Warning  | Phase alignment                                     | 59     |
++-------------+----------+-----------------------------------------------------+--------+
+
+2. REPORT DETAILS
+-----------------
+BUFC-1#1 Warning
+Input Buffer Connections  
+Input buffer IOBUFDS/IBUFDS (in IOBUFDS macro) has no loads. It is recommended to have an input buffer drive an internal load.
+Related violations: <none>
+
+BUFC-1#2 Warning
+Input Buffer Connections  
+Input buffer IOBUFDS_1/IBUFDS (in IOBUFDS_1 macro) has no loads. It is recommended to have an input buffer drive an internal load.
+Related violations: <none>
+
+CFGBVS-1#1 Warning
+Missing CFGBVS and CONFIG_VOLTAGE Design Properties  
+Neither the CFGBVS nor CONFIG_VOLTAGE voltage property is set in the current_design.  Configuration bank voltage select (CFGBVS) must be set to VCCO or GND, and CONFIG_VOLTAGE must be set to the correct configuration voltage, in order to determine the I/O voltage support for the pins in bank 0.  It is suggested to specify these either using the 'Edit Device Properties' function in the GUI or directly in the XDC file using the following syntax:
+
+ set_property CFGBVS value1 [current_design]
+ #where value1 is either VCCO or GND
+
+ set_property CONFIG_VOLTAGE value2 [current_design]
+ #where value2 is the voltage provided to configuration bank 0
+
+Refer to the device configuration user guide for more information.
+Related violations: <none>
+
+DPIP-1#1 Warning
+Input pipelining  
+DSP VexRiscv/execute_to_memory_MUL_HL_reg input VexRiscv/execute_to_memory_MUL_HL_reg/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#2 Warning
+Input pipelining  
+DSP VexRiscv/execute_to_memory_MUL_HL_reg input VexRiscv/execute_to_memory_MUL_HL_reg/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#3 Warning
+Input pipelining  
+DSP VexRiscv/execute_to_memory_MUL_LH_reg input VexRiscv/execute_to_memory_MUL_LH_reg/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#4 Warning
+Input pipelining  
+DSP VexRiscv/execute_to_memory_MUL_LH_reg input VexRiscv/execute_to_memory_MUL_LH_reg/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#5 Warning
+Input pipelining  
+DSP VexRiscv/execute_to_memory_MUL_LL_reg input VexRiscv/execute_to_memory_MUL_LL_reg/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#6 Warning
+Input pipelining  
+DSP VexRiscv/execute_to_memory_MUL_LL_reg input VexRiscv/execute_to_memory_MUL_LL_reg/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#7 Warning
+Input pipelining  
+DSP VexRiscv/memory_to_writeBack_MUL_HH_reg input VexRiscv/memory_to_writeBack_MUL_HH_reg/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#8 Warning
+Input pipelining  
+DSP VexRiscv/memory_to_writeBack_MUL_HH_reg input VexRiscv/memory_to_writeBack_MUL_HH_reg/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPOP-2#1 Warning
+MREG Output pipelining  
+DSP VexRiscv/execute_to_memory_MUL_HL_reg multiplier stage VexRiscv/execute_to_memory_MUL_HL_reg/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#2 Warning
+MREG Output pipelining  
+DSP VexRiscv/execute_to_memory_MUL_LH_reg multiplier stage VexRiscv/execute_to_memory_MUL_LH_reg/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#3 Warning
+MREG Output pipelining  
+DSP VexRiscv/execute_to_memory_MUL_LL_reg multiplier stage VexRiscv/execute_to_memory_MUL_LL_reg/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+PLBUFGOPT-1#1 Warning
+Non-Optimal connections to BUFG  
+A non-muxed BUFG BUFG is driven by another global buffer BUFG_replica. Remove non-muxed BUFG if it is not desired
+Related violations: <none>
+
+REQP-1580#1 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2. This can result in corrupted data. The ISERDESE2/CLK / ISERDESE2/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#2 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_1. This can result in corrupted data. The ISERDESE2_1/CLK / ISERDESE2_1/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#3 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_10. This can result in corrupted data. The ISERDESE2_10/CLK / ISERDESE2_10/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#4 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_11. This can result in corrupted data. The ISERDESE2_11/CLK / ISERDESE2_11/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#5 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_12. This can result in corrupted data. The ISERDESE2_12/CLK / ISERDESE2_12/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#6 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_13. This can result in corrupted data. The ISERDESE2_13/CLK / ISERDESE2_13/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#7 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_14. This can result in corrupted data. The ISERDESE2_14/CLK / ISERDESE2_14/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#8 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_15. This can result in corrupted data. The ISERDESE2_15/CLK / ISERDESE2_15/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#9 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_2. This can result in corrupted data. The ISERDESE2_2/CLK / ISERDESE2_2/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#10 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_3. This can result in corrupted data. The ISERDESE2_3/CLK / ISERDESE2_3/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#11 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_4. This can result in corrupted data. The ISERDESE2_4/CLK / ISERDESE2_4/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#12 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_5. This can result in corrupted data. The ISERDESE2_5/CLK / ISERDESE2_5/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#13 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_6. This can result in corrupted data. The ISERDESE2_6/CLK / ISERDESE2_6/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#14 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_7. This can result in corrupted data. The ISERDESE2_7/CLK / ISERDESE2_7/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#15 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_8. This can result in corrupted data. The ISERDESE2_8/CLK / ISERDESE2_8/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#16 Warning
+Phase alignment  
+Unsupported clocking topology used for ISERDESE2 ISERDESE2_9. This can result in corrupted data. The ISERDESE2_9/CLK / ISERDESE2_9/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#17 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2. This can result in corrupted data. The OSERDESE2/CLK / OSERDESE2/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#18 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_1. This can result in corrupted data. The OSERDESE2_1/CLK / OSERDESE2_1/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#19 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_10. This can result in corrupted data. The OSERDESE2_10/CLK / OSERDESE2_10/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#20 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_11. This can result in corrupted data. The OSERDESE2_11/CLK / OSERDESE2_11/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#21 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_12. This can result in corrupted data. The OSERDESE2_12/CLK / OSERDESE2_12/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#22 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_13. This can result in corrupted data. The OSERDESE2_13/CLK / OSERDESE2_13/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#23 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_14. This can result in corrupted data. The OSERDESE2_14/CLK / OSERDESE2_14/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#24 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_15. This can result in corrupted data. The OSERDESE2_15/CLK / OSERDESE2_15/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#25 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_16. This can result in corrupted data. The OSERDESE2_16/CLK / OSERDESE2_16/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#26 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_17. This can result in corrupted data. The OSERDESE2_17/CLK / OSERDESE2_17/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#27 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_18. This can result in corrupted data. The OSERDESE2_18/CLK / OSERDESE2_18/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#28 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_19. This can result in corrupted data. The OSERDESE2_19/CLK / OSERDESE2_19/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#29 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_2. This can result in corrupted data. The OSERDESE2_2/CLK / OSERDESE2_2/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#30 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_20. This can result in corrupted data. The OSERDESE2_20/CLK / OSERDESE2_20/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#31 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_21. This can result in corrupted data. The OSERDESE2_21/CLK / OSERDESE2_21/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#32 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_22. This can result in corrupted data. The OSERDESE2_22/CLK / OSERDESE2_22/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#33 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_23. This can result in corrupted data. The OSERDESE2_23/CLK / OSERDESE2_23/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#34 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_24. This can result in corrupted data. The OSERDESE2_24/CLK / OSERDESE2_24/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#35 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_25. This can result in corrupted data. The OSERDESE2_25/CLK / OSERDESE2_25/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#36 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_26. This can result in corrupted data. The OSERDESE2_26/CLK / OSERDESE2_26/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#37 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_27. This can result in corrupted data. The OSERDESE2_27/CLK / OSERDESE2_27/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#38 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_28. This can result in corrupted data. The OSERDESE2_28/CLK / OSERDESE2_28/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#39 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_29. This can result in corrupted data. The OSERDESE2_29/CLK / OSERDESE2_29/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#40 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_3. This can result in corrupted data. The OSERDESE2_3/CLK / OSERDESE2_3/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#41 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_30. This can result in corrupted data. The OSERDESE2_30/CLK / OSERDESE2_30/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#42 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_31. This can result in corrupted data. The OSERDESE2_31/CLK / OSERDESE2_31/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#43 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_32. This can result in corrupted data. The OSERDESE2_32/CLK / OSERDESE2_32/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#44 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_33. This can result in corrupted data. The OSERDESE2_33/CLK / OSERDESE2_33/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#45 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_34. This can result in corrupted data. The OSERDESE2_34/CLK / OSERDESE2_34/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#46 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_35. This can result in corrupted data. The OSERDESE2_35/CLK / OSERDESE2_35/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#47 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_36. This can result in corrupted data. The OSERDESE2_36/CLK / OSERDESE2_36/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#48 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_37. This can result in corrupted data. The OSERDESE2_37/CLK / OSERDESE2_37/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#49 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_38. This can result in corrupted data. The OSERDESE2_38/CLK / OSERDESE2_38/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#50 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_39. This can result in corrupted data. The OSERDESE2_39/CLK / OSERDESE2_39/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#51 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_4. This can result in corrupted data. The OSERDESE2_4/CLK / OSERDESE2_4/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#52 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_40. This can result in corrupted data. The OSERDESE2_40/CLK / OSERDESE2_40/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#53 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_41. This can result in corrupted data. The OSERDESE2_41/CLK / OSERDESE2_41/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#54 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_42. This can result in corrupted data. The OSERDESE2_42/CLK / OSERDESE2_42/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#55 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_5. This can result in corrupted data. The OSERDESE2_5/CLK / OSERDESE2_5/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#56 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_6. This can result in corrupted data. The OSERDESE2_6/CLK / OSERDESE2_6/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#57 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_7. This can result in corrupted data. The OSERDESE2_7/CLK / OSERDESE2_7/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#58 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_8. This can result in corrupted data. The OSERDESE2_8/CLK / OSERDESE2_8/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+REQP-1580#59 Warning
+Phase alignment  
+Unsupported clocking topology used for OSERDESE2 OSERDESE2_9. This can result in corrupted data. The OSERDESE2_9/CLK / OSERDESE2_9/CLKDIV pins should be driven by the same source through the same buffer type or by a BUFIO / BUFR combination in order to have a proper phase relationship. Please refer to the Select I/O User Guide for supported clocking topologies of the chosen INTERFACE_TYPE mode.
+Related violations: <none>
+
+
