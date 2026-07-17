@@ -1,4 +1,14 @@
 /*
+ * ==========================================================================
+ *  WHAT THIS FILE DOES (in simple words):
+ *  Local copy of the EXP-LUT accelerator RTL (the 16-entry exp lookup table), placed
+ *  here so build_soc.py and Vivado can find it during synthesis. The master copy and
+ *  full explanation live in TinyML_algo/hw_extensions/exp_lut/.
+ *  BIG PICTURE: One of the two peripheral circuits stitched into the SoC.
+ * ==========================================================================
+ */
+
+/*
  * Exp LUT — softmax helper for TinyFormer.
  *
  * Maps a signed index (e.g. -15..0) to a fixed-point exp(value) approximation.

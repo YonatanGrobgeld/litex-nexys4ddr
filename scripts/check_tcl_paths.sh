@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  Sanity-checks the Vivado Tcl files before copying them to Windows: makes sure
+#  they contain no Linux-only absolute paths (/home/...) that would break on the
+#  Windows machine.
+#  BIG PICTURE: Guards the Linux-to-Windows handoff.
+# ==========================================================================
+
 set -euo pipefail
 
 # Find and validate TCL files in shared folder

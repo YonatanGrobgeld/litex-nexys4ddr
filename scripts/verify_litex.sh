@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  Shell wrapper that runs verify_litex.py inside the venv.
+#  BIG PICTURE: Environment sanity check (shell side).
+# ==========================================================================
+
 set -euo pipefail
 
 REPO_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)

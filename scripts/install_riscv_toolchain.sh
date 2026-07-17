@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  Downloads and installs the prebuilt riscv64-unknown-elf-gcc toolchain needed to
+#  compile the BIOS and bare-metal firmware.
+#  BIG PICTURE: One-time setup of the RISC-V compiler.
+# ==========================================================================
+
 set -euo pipefail
 
 # Install RISC-V GCC toolchain for LiteX BIOS compilation

@@ -1,4 +1,14 @@
 /*
+ * ==========================================================================
+ *  WHAT THIS FILE DOES (in simple words):
+ *  Local copy of the GEMV matrix-engine RTL (v2: packed 32-bit loads + 4-lane MAC),
+ *  placed here so build_soc.py and Vivado can find it during synthesis. The master
+ *  copy and full explanation live in TinyML_algo/hw_extensions/gemv/.
+ *  BIG PICTURE: The other peripheral circuit stitched into the SoC.
+ * ==========================================================================
+ */
+
+/*
  * GEMV core v2: Y = W * X + b (optional).
  * int8 W, X; int32 b, Y.  LEN and OUT_DIM = 32 or 64.
  *

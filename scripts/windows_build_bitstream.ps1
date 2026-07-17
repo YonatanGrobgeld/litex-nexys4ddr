@@ -1,3 +1,11 @@
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  The WINDOWS half of the build: PowerShell script that runs Vivado synthesis on
+#  the gateware folder copied from the Linux VM, producing the final .bit bitstream
+#  that gets programmed onto the FPGA.
+#  BIG PICTURE: Step 2 of the two-machine build flow.
+# ==========================================================================
+
 # Build Nexys4 DDR Bitstream on Windows
 # PowerShell script to run Vivado synthesis from a copied gateware folder
 # Usage: .\windows_build_bitstream.ps1 -BuildFolder "Z:\nexys4ddr_build"

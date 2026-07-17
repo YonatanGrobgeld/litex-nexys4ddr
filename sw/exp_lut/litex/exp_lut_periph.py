@@ -1,4 +1,13 @@
 #!/usr/bin/env python3
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  LiteX/Migen wrapper that puts the exp_lut.v circuit on the SoC bus: creates an
+#  'index' register (CPU writes the question) and a 'value' register (CPU reads the
+#  answer) and wires them to the Verilog module. Imported by hw/build_soc.py.
+#  LiteX auto-generates the C accessors (exp_lut_index_write / exp_lut_value_read).
+#  BIG PICTURE: Makes the LUT circuit addressable from firmware.
+# ==========================================================================
+
 import os
 from litex.soc.interconnect.csr import AutoCSR, CSRStorage, CSRStatus
 from migen import *

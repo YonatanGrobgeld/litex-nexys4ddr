@@ -1,3 +1,15 @@
+/*
+ * ==========================================================================
+ *  WHAT THIS FILE DOES (in simple words):
+ *  MACHINE-GENERATED Verilog of the ENTIRE VexRiscv CPU with the DOT8 custom instruction
+ *  baked in (~6,400 lines - do not read by hand). Produced by SpinalHDL from the Scala
+ *  sources (Dot8Plugin.scala in the TinyML_algo repo + a generator config).
+ *  build_soc.py feeds THIS file to Vivado instead of the standard VexRiscv, which is
+ *  how the custom instruction physically exists on the FPGA.
+ *  BIG PICTURE: The CPU itself, with the 4-lane int8 dot-product instruction inside.
+ * ==========================================================================
+ */
+
 // Generator : SpinalHDL v1.9.4    git head : 270018552577f3bb8e5339ee2583c9c22d324215
 // Component : VexRiscv
 // Git hash  : 1979a644dbe64d8d32dfbdd970dccee6add63723

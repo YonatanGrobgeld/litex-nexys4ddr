@@ -1,3 +1,11 @@
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  Regenerates the ROM init file from a compiled BIOS binary using LiteX's
+#  get_mem_data - the fix for a ROM-init/BIOS mismatch found during bring-up
+#  (FPGA ROM contents must exactly match the BIOS the build expects).
+#  BIG PICTURE: Repair tool for the on-chip ROM image.
+# ==========================================================================
+
 import os
 import sys
 from litex.soc.integration.common import get_mem_data
