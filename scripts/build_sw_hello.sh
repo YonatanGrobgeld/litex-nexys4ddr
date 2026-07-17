@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  Compiles sw/hello_measure/main.c with the RISC-V toolchain into a minimal
+#  bare-metal binary that the LiteX BIOS can receive over serial boot.
+#  BIG PICTURE: Builds the smoke-test program.
+# ==========================================================================
+
 set -euo pipefail
 
 # Build script for hello_measure program

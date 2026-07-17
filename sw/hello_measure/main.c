@@ -1,3 +1,15 @@
+/*
+ * ==========================================================================
+ *  WHAT THIS FILE DOES (in simple words):
+ *  Tiny STANDALONE bring-up program used BEFORE running the real TinyFormer firmware:
+ *  prints 'hello' over UART (by raw MMIO writes - no libc, no headers at all) and
+ *  reads the RISC-V mcycle counter around a busy loop, printing the cycle count.
+ *  Its job was to prove three things on the fresh SoC: serial boot works, the UART
+ *  works, and cycle counting works - before trusting any real measurement.
+ *  BIG PICTURE: The 'is this SoC alive?' smoke test.
+ * ==========================================================================
+ */
+
 /* Standalone RISC-V program - no includes */
 
 /* UART hardware addresses */

@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  Runs hw/build_soc.py inside the Python venv to generate the SoC RTL, constraints,
+#  ROM/SRAM init images and the LiteX BIOS - i.e. the Linux half of the build flow
+#  (the Windows half is Vivado synthesis).
+#  BIG PICTURE: Step 1 of the two-machine build flow.
+# ==========================================================================
+
 set -euo pipefail
 
 REPO_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)

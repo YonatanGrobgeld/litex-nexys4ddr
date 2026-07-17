@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  Runs hello_measure N times over serial boot and collects the printed cycle
+#  counts - an early check that timing measurements are stable and repeatable.
+#  BIG PICTURE: Repeatability check for cycle counting.
+# ==========================================================================
+
 set -euo pipefail
 
 # Run the hello_measure program N times via serial boot and collect cycle counts.

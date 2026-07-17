@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  Creates the Python virtual environment IN THE HOME DIRECTORY (not in the repo,
+#  because VirtualBox shared folders cannot hold a working venv) and installs the
+#  Python packages the build needs.
+#  BIG PICTURE: One-time Python environment setup.
+# ==========================================================================
+
 set -euo pipefail
 
 # Setup script to create and configure Python venv in home directory

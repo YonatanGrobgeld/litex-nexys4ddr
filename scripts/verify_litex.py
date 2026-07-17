@@ -1,3 +1,10 @@
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  Checks that LiteX and its companion packages are importable and prints their
+#  versions - a quick 'is my environment sane?' test.
+#  BIG PICTURE: Environment sanity check (Python side).
+# ==========================================================================
+
 import importlib.metadata as metadata
 import sys
 

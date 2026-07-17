@@ -527,13 +527,13 @@ wire    [7:0] builder_csrbank3_status_r;
 reg           builder_csrbank3_status_re = 1'd0;
 wire    [7:0] builder_csrbank3_status_w;
 reg           builder_csrbank3_status_we = 1'd0;
-wire    [7:0] builder_csrbank3_w_in0_r;
+wire   [31:0] builder_csrbank3_w_in0_r;
 reg           builder_csrbank3_w_in0_re = 1'd0;
-wire    [7:0] builder_csrbank3_w_in0_w;
+wire   [31:0] builder_csrbank3_w_in0_w;
 reg           builder_csrbank3_w_in0_we = 1'd0;
-wire    [7:0] builder_csrbank3_x_in0_r;
+wire   [31:0] builder_csrbank3_x_in0_r;
 reg           builder_csrbank3_x_in0_re = 1'd0;
-wire    [7:0] builder_csrbank3_x_in0_w;
+wire   [31:0] builder_csrbank3_x_in0_w;
 reg           builder_csrbank3_x_in0_we = 1'd0;
 wire    [7:0] builder_csrbank3_y_next0_r;
 reg           builder_csrbank3_y_next0_re = 1'd0;
@@ -2747,9 +2747,9 @@ reg           main_value_re = 1'd0;
 wire   [15:0] main_value_status;
 wire          main_value_we;
 reg           main_w_in_re = 1'd0;
-reg     [7:0] main_w_in_storage = 8'd0;
+reg    [31:0] main_w_in_storage = 32'd0;
 reg           main_x_in_re = 1'd0;
-reg     [7:0] main_x_in_storage = 8'd0;
+reg    [31:0] main_x_in_storage = 32'd0;
 reg           main_y_next_re = 1'd0;
 reg     [7:0] main_y_next_storage = 8'd0;
 reg           main_y_out_re = 1'd0;
@@ -6902,7 +6902,7 @@ always @(*) begin
         builder_csrbank3_ctrl0_we <= builder_interface3_bank_bus_re;
     end
 end
-assign builder_csrbank3_x_in0_r = builder_interface3_bank_bus_dat_w[7:0];
+assign builder_csrbank3_x_in0_r = builder_interface3_bank_bus_dat_w[31:0];
 always @(*) begin
     builder_csrbank3_x_in0_re <= 1'd0;
     builder_csrbank3_x_in0_we <= 1'd0;
@@ -6911,7 +6911,7 @@ always @(*) begin
         builder_csrbank3_x_in0_we <= builder_interface3_bank_bus_re;
     end
 end
-assign builder_csrbank3_w_in0_r = builder_interface3_bank_bus_dat_w[7:0];
+assign builder_csrbank3_w_in0_r = builder_interface3_bank_bus_dat_w[31:0];
 always @(*) begin
     builder_csrbank3_w_in0_re <= 1'd0;
     builder_csrbank3_w_in0_we <= 1'd0;
@@ -6957,8 +6957,8 @@ always @(*) begin
     end
 end
 assign builder_csrbank3_ctrl0_w = main_ctrl_storage[7:0];
-assign builder_csrbank3_x_in0_w = main_x_in_storage[7:0];
-assign builder_csrbank3_w_in0_w = main_w_in_storage[7:0];
+assign builder_csrbank3_x_in0_w = main_x_in_storage[31:0];
+assign builder_csrbank3_w_in0_w = main_w_in_storage[31:0];
 assign builder_csrbank3_b_in0_w = main_b_in_storage[31:0];
 assign builder_csrbank3_y_out_w = main_y_out_status[31:0];
 assign main_y_out_we = builder_csrbank3_y_out_we;
@@ -10001,11 +10001,11 @@ always @(posedge sys_clk) begin
     end
     main_ctrl_re <= builder_csrbank3_ctrl0_re;
     if (builder_csrbank3_x_in0_re) begin
-        main_x_in_storage[7:0] <= builder_csrbank3_x_in0_r;
+        main_x_in_storage[31:0] <= builder_csrbank3_x_in0_r;
     end
     main_x_in_re <= builder_csrbank3_x_in0_re;
     if (builder_csrbank3_w_in0_re) begin
-        main_w_in_storage[7:0] <= builder_csrbank3_w_in0_r;
+        main_w_in_storage[31:0] <= builder_csrbank3_w_in0_r;
     end
     main_w_in_re <= builder_csrbank3_w_in0_re;
     if (builder_csrbank3_b_in0_re) begin
@@ -10455,9 +10455,9 @@ always @(posedge sys_clk) begin
         main_value_re <= 1'd0;
         main_ctrl_storage <= 8'd0;
         main_ctrl_re <= 1'd0;
-        main_x_in_storage <= 8'd0;
+        main_x_in_storage <= 32'd0;
         main_x_in_re <= 1'd0;
-        main_w_in_storage <= 8'd0;
+        main_w_in_storage <= 32'd0;
         main_w_in_re <= 1'd0;
         main_b_in_storage <= 32'd0;
         main_b_in_re <= 1'd0;
@@ -13326,7 +13326,7 @@ gemv_core #(
 	// Parameters.
 	.MAX_LEN     (7'd64),
 	.MAX_OUT     (7'd64),
-	.W_ADDR_BITS (4'd12)
+	.W_ADDR_BITS (4'd10)
 ) gemv_core (
 	// Inputs.
 	.b_wr_data  (main_b_in_storage),

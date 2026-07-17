@@ -1,4 +1,20 @@
 #!/usr/bin/env python3
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  THE CENTERPIECE of this repo - the script that assembles the whole SoC (System on a
+#  Chip). Running it builds, in Python/LiteX: the clock generator (PLL: 100 MHz system
+#  clock), the VexRiscv CPU with 16 KiB I/D caches, 128 KiB on-chip ROM holding the BIOS,
+#  the DDR2 controller (128 MiB main RAM), UART, timer - and plugs in the two accelerator
+#  peripherals (ExpLUT + GEMV) so their registers appear on the bus automatically.
+#  KEY FIX (v2): the DOT8-extended CPU is swapped in with cpu.use_external_variant(),
+#  NOT plain add_source() - both files define a module named 'VexRiscv', and without
+#  this fix Vivado silently picks the standard CPU, dropping the DOT8 instruction
+#  (firmware then crashes on the first dot8 call).
+#  It outputs the generated Verilog + BIOS + csr.h; Vivado synthesis runs separately
+#  on Windows (builder.build(run=False)).
+#  BIG PICTURE: Run this to get every file Vivado needs to make the bitstream. This is the 'external LiteX build tree' the TinyML_algo repo refers to.
+# ==========================================================================
+
 import argparse
 import os
 import sys

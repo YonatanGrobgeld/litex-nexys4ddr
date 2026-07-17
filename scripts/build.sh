@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  One-stop build driver for the VirtualBox shared-folder workflow: finds the Python
+#  venv in the home directory and runs the SoC/software builds in the right order.
+#  BIG PICTURE: Convenience wrapper around the whole Linux-side build.
+# ==========================================================================
+
 set -euo pipefail
 
 # Build script for consolidated project in shared folder

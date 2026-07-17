@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  Uploads sw/hello_measure over the LiteX serial-boot protocol and runs it on the
+#  board, showing its UART output.
+#  BIG PICTURE: Runs the smoke test on real hardware.
+# ==========================================================================
+
 
 # Script to upload and run hello_measure program via serial boot
 

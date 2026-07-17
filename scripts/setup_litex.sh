@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  Clones/installs LiteX and its dependencies into third_party/ and the venv -
+#  the SoC-builder framework everything here depends on.
+#  BIG PICTURE: One-time setup of the LiteX framework.
+# ==========================================================================
+
 set -euo pipefail
 
 REPO_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)

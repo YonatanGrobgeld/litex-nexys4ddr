@@ -1,4 +1,13 @@
 #!/usr/bin/env python3
+# ==========================================================================
+#  WHAT THIS FILE DOES (in simple words):
+#  LiteX/Migen wrapper that puts gemv_core.v on the SoC bus: creates the CSR registers
+#  the firmware driver talks to (ctrl, x_in, w_in, b_in, y_out, status, y_next),
+#  turns start/clear_done control-bit writes into one-cycle pulses, and wires
+#  everything to the Verilog core. Imported by hw/build_soc.py.
+#  BIG PICTURE: Makes the matrix engine addressable from firmware.
+# ==========================================================================
+
 import os
 from litex.soc.interconnect.csr import AutoCSR, CSRStorage, CSRStatus
 from migen import *
