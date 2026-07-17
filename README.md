@@ -12,12 +12,11 @@ LiteX SoC with VexRiscv CPU on Digilent Nexys4 DDR (Artix-7 xc7a100t), running a
 | Mode | CYCLES | Time | Speedup |
 |---|---|---|---|
 | Baseline (real-math softmax, software matvec) | 75,900,400 | **759.00 ms** | 1.00× |
-| accel_all v1 (byte-wide GEMV) | 19,067,129 | 190.67 ms | 3.98× |
-| **accel_all v2** (packed 32-bit GEMV + 4-lane MAC + DOT8 + EXP_LUT) | **15,755,300** | **157.55 ms** | **4.82×** |
+| **accel_all** (packed 32-bit GEMV + 4-lane MAC + DOT8 + EXP_LUT) | **15,755,300** | **157.55 ms** | **4.82×** |
 
 Time = CYCLES / 100 MHz. The TinyML_Algo repo's [REPORT_NOTES_IMPLEMENTATION.md §9](https://github.com/YonatanGrobgeld/TinyML_Algo/blob/main/REPORT_NOTES_IMPLEMENTATION.md) has the full breakdown.
 
-### Important `build_soc.py` fix (v2)
+### Important `build_soc.py` fix
 
 The standard VexRiscv CPU and our DOT8-extended VexRiscv both define a Verilog module named `VexRiscv`. To make Vivado actually pick up the DOT8 variant (instead of silently defaulting to LiteX's bundled standard one), the SoC build calls `self.cpu.use_external_variant(VexRiscv_Dot8.v)` rather than plain `platform.add_source()`. The former sets `external_variant = True` inside LiteX's VexRiscv core, which causes `do_finalize()` to skip adding the bundled `VexRiscv.v`, leaving only our DOT8 file in the source list. Without this fix the DOT8 instruction is silently dropped and `accel_all` firmware traps on its first `dot8_4_lanes()` call. See the commit log for details.
 
