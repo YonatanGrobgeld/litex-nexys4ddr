@@ -1,0 +1,35 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Mon May 18 12:33:29 2026
+| Host         : DESKTOP-6JLD9LJ running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file digilent_nexys4ddr_utilization_hierarchical_place.rpt
+| Design       : digilent_nexys4ddr
+| Device       : xc7a100tcsg324-1
+| Speed File   : -1
+| Design State : Fully Placed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++----------------------------+------------------+------------+------------+---------+------+------+--------+--------+------------+
+|          Instance          |      Module      | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++----------------------------+------------------+------------+------------+---------+------+------+--------+--------+------------+
+| digilent_nexys4ddr         |            (top) |       6363 |       5451 |     910 |    2 | 5478 |     47 |      8 |          4 |
+|   (digilent_nexys4ddr)     |            (top) |       1906 |       1764 |     140 |    2 | 2094 |     46 |      0 |          0 |
+|   VexRiscv                 |         VexRiscv |       2348 |       2348 |       0 |    0 | 1252 |      1 |      8 |          4 |
+|     (VexRiscv)             |         VexRiscv |       1345 |       1345 |       0 |    0 | 1098 |      0 |      2 |          4 |
+|     IBusCachedPlugin_cache | InstructionCache |        596 |        596 |       0 |    0 |   95 |      1 |      1 |          0 |
+|     dataCache_1            |        DataCache |        417 |        417 |       0 |    0 |   59 |      0 |      5 |          0 |
+|   gemv_core                |        gemv_core |       2111 |       1341 |     770 |    0 | 2132 |      0 |      0 |          0 |
++----------------------------+------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+
