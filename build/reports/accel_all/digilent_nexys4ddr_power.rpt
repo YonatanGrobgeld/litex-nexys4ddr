@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
-| Date             : Mon May 18 12:38:37 2026
+| Date             : Fri Jul 17 17:44:45 2026
 | Host             : DESKTOP-6JLD9LJ running 64-bit major release  (build 9200)
 | Command          : report_power -file digilent_nexys4ddr_power.rpt
 | Design           : digilent_nexys4ddr
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.792        |
+| Total On-Chip Power (W)  | 0.785        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.683        |
+| Dynamic (W)              | 0.675        |
 | Device Static (W)        | 0.109        |
 | Effective TJA (C/W)      | 4.6          |
 | Max Ambient (C)          | 81.4         |
@@ -52,22 +52,22 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.030 |        8 |       --- |             --- |
-| Slice Logic              |     0.018 |    13730 |       --- |             --- |
-|   LUT as Logic           |     0.017 |     5453 |     63400 |            8.60 |
-|   CARRY4                 |     0.001 |      299 |     15850 |            1.89 |
-|   Register               |    <0.001 |     5478 |    126800 |            4.32 |
+| Clocks                   |     0.029 |        8 |       --- |             --- |
+| Slice Logic              |     0.013 |    13407 |       --- |             --- |
+|   LUT as Logic           |     0.012 |     5114 |     63400 |            8.07 |
+|   CARRY4                 |    <0.001 |      236 |     15850 |            1.49 |
+|   Register               |    <0.001 |     5582 |    126800 |            4.40 |
 |   F7/F8 Muxes            |    <0.001 |      473 |     63400 |            0.75 |
 |   LUT as Distributed RAM |    <0.001 |      910 |     19000 |            4.79 |
 |   LUT as Shift Register  |    <0.001 |        2 |     19000 |            0.01 |
 |   Others                 |     0.000 |       15 |       --- |             --- |
-| Signals                  |     0.024 |    11446 |       --- |             --- |
-| Block RAM                |     0.098 |       51 |       135 |           37.78 |
+| Signals                  |     0.019 |    11093 |       --- |             --- |
+| Block RAM                |     0.096 |       51 |       135 |           37.78 |
 | PLL                      |     0.132 |        1 |         6 |           16.67 |
 | DSPs                     |     0.004 |        4 |       240 |            1.67 |
-| I/O                      |     0.376 |       50 |       210 |           23.81 |
+| I/O                      |     0.381 |       50 |       210 |           23.81 |
 | Static Power             |     0.109 |          |           |                 |
-| Total                    |     0.792 |          |           |                 |
+| Total                    |     0.785 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -77,11 +77,11 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.198 |       0.180 |      0.018 |       NA    | Unspecified | NA         |
-| Vccaux    |       1.800 |     0.123 |       0.104 |      0.018 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.186 |       0.168 |      0.018 |       NA    | Unspecified | NA         |
+| Vccaux    |       1.800 |     0.124 |       0.105 |      0.018 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.004 |       0.000 |      0.004 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
-| Vcco18    |       1.800 |     0.175 |       0.171 |      0.004 |       NA    | Unspecified | NA         |
+| Vcco18    |       1.800 |     0.176 |       0.172 |      0.004 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -151,32 +151,32 @@ Table of Contents
 +----------------------------+-----------+
 | Name                       | Power (W) |
 +----------------------------+-----------+
-| digilent_nexys4ddr         |     0.683 |
+| digilent_nexys4ddr         |     0.675 |
 |   IOBUF                    |     0.008 |
 |   IOBUFDS                  |     0.006 |
-|     OBUFTDS                |     0.005 |
+|     OBUFTDS                |     0.006 |
 |   IOBUFDS_1                |     0.006 |
-|     OBUFTDS                |     0.005 |
-|   IOBUF_1                  |     0.007 |
-|   IOBUF_10                 |     0.007 |
-|   IOBUF_11                 |     0.007 |
-|   IOBUF_12                 |     0.007 |
-|   IOBUF_13                 |     0.007 |
+|     OBUFTDS                |     0.006 |
+|   IOBUF_1                  |     0.008 |
+|   IOBUF_10                 |     0.008 |
+|   IOBUF_11                 |     0.008 |
+|   IOBUF_12                 |     0.008 |
+|   IOBUF_13                 |     0.008 |
 |   IOBUF_14                 |     0.008 |
-|   IOBUF_15                 |     0.007 |
-|   IOBUF_2                  |     0.007 |
+|   IOBUF_15                 |     0.008 |
+|   IOBUF_2                  |     0.008 |
 |   IOBUF_3                  |     0.008 |
 |   IOBUF_4                  |     0.008 |
-|   IOBUF_5                  |     0.007 |
-|   IOBUF_6                  |     0.007 |
+|   IOBUF_5                  |     0.008 |
+|   IOBUF_6                  |     0.008 |
 |   IOBUF_7                  |     0.008 |
-|   IOBUF_8                  |     0.007 |
-|   IOBUF_9                  |     0.007 |
+|   IOBUF_8                  |     0.008 |
+|   IOBUF_9                  |     0.008 |
 |   OBUFDS                   |     0.008 |
-|   VexRiscv                 |     0.048 |
-|     IBusCachedPlugin_cache |     0.009 |
-|     dataCache_1            |     0.006 |
-|   gemv_core                |     0.011 |
+|   VexRiscv                 |     0.036 |
+|     IBusCachedPlugin_cache |     0.007 |
+|     dataCache_1            |     0.005 |
+|   gemv_core                |     0.012 |
 +----------------------------+-----------+
 
 

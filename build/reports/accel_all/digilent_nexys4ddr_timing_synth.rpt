@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
-| Date         : Mon May 18 12:30:36 2026
+| Date         : Fri Jul 17 17:40:04 2026
 | Host         : DESKTOP-6JLD9LJ running 64-bit major release  (build 9200)
 | Command      : report_timing_summary -file digilent_nexys4ddr_timing_synth.rpt
 | Design       : digilent_nexys4ddr
@@ -138,10 +138,10 @@ Table of Contents
 
     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-     -6.086     -209.252                     96                20748        0.022        0.000                      0                20748        0.264        0.000                       0                  6788  
+      0.125        0.000                      0                20976        0.022        0.000                      0                20976        0.264        0.000                       0                  6892  
 
 
-Timing constraints are not met.
+All user specified timing constraints are met.
 
 
 ------------------------------------------------------------------------------------------------
@@ -168,7 +168,7 @@ Clock                   WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total E
 -----                   -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
 clk100                    8.788        0.000                      0                    7        0.152        0.000                      0                    7        3.000        0.000                       0                    10  
   builder_pll_fb                                                                                                                                                      8.751        0.000                       0                     2  
-  main_crg_clkout0       -6.086     -209.252                     96                20727        0.022        0.000                      0                20727        3.750        0.000                       0                  6687  
+  main_crg_clkout0        0.125        0.000                      0                20955        0.022        0.000                      0                20955        3.750        0.000                       0                  6791  
   main_crg_clkout1                                                                                                                                                    2.845        0.000                       0                    75  
   main_crg_clkout2                                                                                                                                                    2.845        0.000                       0                     4  
   main_crg_clkout3        1.068        0.000                      0                   14        0.045        0.000                      0                   14        0.264        0.000                       0                    10  
@@ -362,7 +362,7 @@ Max Period  n/a     PLLE2_ADV/CLKFBIN   n/a            52.633        10.000     
 From Clock:  main_crg_clkout0
   To Clock:  main_crg_clkout0
 
-Setup :           96  Failing Endpoints,  Worst Slack       -6.086ns,  Total Violation     -209.252ns
+Setup :            0  Failing Endpoints,  Worst Slack        0.125ns,  Total Violation        0.000ns
 Hold  :            0  Failing Endpoints,  Worst Slack        0.022ns,  Total Violation        0.000ns
 PW    :            0  Failing Endpoints,  Worst Slack        3.750ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
@@ -370,16 +370,16 @@ PW    :            0  Failing Endpoints,  Worst Slack        3.750ns,  Total Vio
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (VIOLATED) :        -6.086ns  (required time - arrival time)
-  Source:                 main_ctrl_storage_reg[4]/C
+Slack (MET) :             0.125ns  (required time - arrival time)
+  Source:                 gemv_core/w_word_c_reg[28]/C
                             (rising edge-triggered cell FDRE clocked by main_crg_clkout0  {rise@0.000ns fall@5.000ns period=10.000ns})
-  Destination:            gemv_core/acc_reg[31]/D
+  Destination:            gemv_core/dot4_r_reg[29]/D
                             (rising edge-triggered cell FDRE clocked by main_crg_clkout0  {rise@0.000ns fall@5.000ns period=10.000ns})
   Path Group:             main_crg_clkout0
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            10.000ns  (main_crg_clkout0 rise@10.000ns - main_crg_clkout0 rise@0.000ns)
-  Data Path Delay:        15.928ns  (logic 7.605ns (47.746%)  route 8.323ns (52.254%))
-  Logic Levels:           23  (CARRY4=11 LUT1=1 LUT2=4 LUT3=2 LUT6=4 RAMD64E=1)
+  Data Path Delay:        9.749ns  (logic 5.591ns (57.349%)  route 4.158ns (42.651%))
+  Logic Levels:           14  (CARRY4=8 LUT1=1 LUT2=2 LUT3=1 LUT4=1 LUT6=1)
   Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
     Destination Clock Delay (DCD):    4.299ns = ( 14.299 - 10.000 ) 
     Source Clock Delay      (SCD):    4.754ns
@@ -403,70 +403,48 @@ Slack (VIOLATED) :        -6.086ns  (required time - arrival time)
                                                       0.088     3.053 r  PLLE2_ADV/CLKOUT0
                          net (fo=1, unplaced)         0.803     3.856    main_crg_clkout0
                          BUFG (Prop_bufg_I_O)         0.096     3.952 r  BUFG/O
-                         net (fo=6685, unplaced)      0.803     4.754    main_crg_clkout_buf0
-                         FDRE                                         r  main_ctrl_storage_reg[4]/C
+                         net (fo=6789, unplaced)      0.803     4.754    gemv_core/main_crg_clkout_buf0
+                         FDRE                                         r  gemv_core/w_word_c_reg[28]/C
   -------------------------------------------------------------------    -------------------
-                         FDRE (Prop_fdre_C_Q)         0.478     5.232 r  main_ctrl_storage_reg[4]/Q
-                         net (fo=27, unplaced)        0.830     6.062    gemv_core/builder_interface3_bank_bus_dat_r_reg[7]_0[4]
-                         LUT3 (Prop_lut3_I0_O)        0.295     6.357 r  gemv_core/w_mem_reg_0_63_0_2_i_4/O
-                         net (fo=144, unplaced)       0.841     7.198    gemv_core/w_mem_reg_704_767_24_26/ADDRC3
-                         RAMD64E (Prop_ramd64e_RADR3_O)
-                                                      0.124     7.322 f  gemv_core/w_mem_reg_704_767_24_26/RAMC/O
-                         net (fo=1, unplaced)         0.964     8.286    gemv_core/w_mem_reg_704_767_24_26_n_2
-                         LUT6 (Prop_lut6_I0_O)        0.124     8.410 f  gemv_core/acc[0]_i_182/O
-                         net (fo=1, unplaced)         0.732     9.142    gemv_core/acc[0]_i_182_n_0
-                         LUT6 (Prop_lut6_I1_O)        0.124     9.266 f  gemv_core/acc[0]_i_128/O
-                         net (fo=17, unplaced)        0.505     9.771    gemv_core/B[2]
-                         LUT2 (Prop_lut2_I1_O)        0.124     9.895 r  gemv_core/acc[31]_i_301/O
-                         net (fo=2, unplaced)         0.975    10.870    gemv_core/acc[31]_i_301_n_0
-                         LUT6 (Prop_lut6_I0_O)        0.124    10.994 r  gemv_core/acc[31]_i_245/O
-                         net (fo=1, unplaced)         0.000    10.994    gemv_core/acc[31]_i_245_n_0
-                         CARRY4 (Prop_carry4_S[1]_O[2])
-                                                      0.578    11.572 r  gemv_core/acc_reg[31]_i_149/O[2]
-                         net (fo=3, unplaced)         0.470    12.042    gemv_core/acc_reg[31]_i_149_n_5
-                         LUT3 (Prop_lut3_I2_O)        0.301    12.343 r  gemv_core/acc[31]_i_137/O
-                         net (fo=1, unplaced)         0.473    12.816    gemv_core/acc[31]_i_137_n_0
+                         FDRE (Prop_fdre_C_Q)         0.478     5.232 r  gemv_core/w_word_c_reg[28]/Q
+                         net (fo=17, unplaced)        1.021     6.253    gemv_core/B[4]
+                         LUT6 (Prop_lut6_I0_O)        0.295     6.548 r  gemv_core/dot4_r[3]_i_63/O
+                         net (fo=1, unplaced)         0.473     7.021    gemv_core/dot4_r[3]_i_63_n_0
                          CARRY4 (Prop_carry4_DI[3]_CO[3])
-                                                      0.396    13.212 r  gemv_core/acc_reg[31]_i_95/CO[3]
-                         net (fo=1, unplaced)         0.000    13.212    gemv_core/acc_reg[31]_i_95_n_0
+                                                      0.396     7.417 r  gemv_core/dot4_r_reg[3]_i_44/CO[3]
+                         net (fo=1, unplaced)         0.000     7.417    gemv_core/dot4_r_reg[3]_i_44_n_0
                          CARRY4 (Prop_carry4_CI_O[1])
-                                                      0.337    13.549 r  gemv_core/acc_reg[31]_i_71/O[1]
-                         net (fo=2, unplaced)         0.622    14.171    gemv_core/dot40[9]
-                         LUT2 (Prop_lut2_I0_O)        0.306    14.477 r  gemv_core/acc[31]_i_74/O
-                         net (fo=1, unplaced)         0.000    14.477    gemv_core/acc[31]_i_74_n_0
+                                                      0.337     7.754 r  gemv_core/dot4_r_reg[29]_i_109/O[1]
+                         net (fo=2, unplaced)         0.622     8.376    gemv_core/dot4_r_reg[29]_i_109_n_6
+                         LUT3 (Prop_lut3_I1_O)        0.306     8.682 r  gemv_core/dot4_r[29]_i_67/O
+                         net (fo=2, unplaced)         0.460     9.142    gemv_core/dot4_r[29]_i_67_n_0
+                         LUT4 (Prop_lut4_I3_O)        0.124     9.266 r  gemv_core/dot4_r[29]_i_71/O
+                         net (fo=1, unplaced)         0.000     9.266    gemv_core/dot4_r[29]_i_71_n_0
                          CARRY4 (Prop_carry4_S[1]_CO[3])
-                                                      0.533    15.010 r  gemv_core/acc_reg[31]_i_51/CO[3]
-                         net (fo=1, unplaced)         0.000    15.010    gemv_core/acc_reg[31]_i_51_n_0
-                         CARRY4 (Prop_carry4_CI_O[3])
-                                                      0.331    15.341 f  gemv_core/acc_reg[31]_i_42/O[3]
-                         net (fo=4, unplaced)         0.472    15.813    gemv_core/acc_reg[31]_i_42_n_4
-                         LUT1 (Prop_lut1_I0_O)        0.302    16.115 r  gemv_core/acc[31]_i_45/O
-                         net (fo=1, unplaced)         0.000    16.115    gemv_core/acc[31]_i_45_n_0
+                                                      0.533     9.799 r  gemv_core/dot4_r_reg[29]_i_36/CO[3]
+                         net (fo=1, unplaced)         0.000     9.799    gemv_core/dot4_r_reg[29]_i_36_n_0
+                         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.337    10.136 r  gemv_core/dot4_r_reg[29]_i_18/O[1]
+                         net (fo=2, unplaced)         0.622    10.758    gemv_core/dot4_c0[13]
+                         LUT2 (Prop_lut2_I0_O)        0.306    11.064 r  gemv_core/dot4_r[29]_i_21/O
+                         net (fo=1, unplaced)         0.000    11.064    gemv_core/dot4_r[29]_i_21_n_0
+                         CARRY4 (Prop_carry4_S[1]_O[3])
+                                                      0.643    11.707 f  gemv_core/dot4_r_reg[29]_i_7/O[3]
+                         net (fo=4, unplaced)         0.472    12.179    gemv_core/dot4_r_reg[29]_i_7_n_4
+                         LUT1 (Prop_lut1_I0_O)        0.302    12.481 r  gemv_core/dot4_r[29]_i_10/O
+                         net (fo=1, unplaced)         0.000    12.481    gemv_core/dot4_r[29]_i_10_n_0
                          CARRY4 (Prop_carry4_DI[3]_CO[3])
-                                                      0.429    16.544 r  gemv_core/acc_reg[31]_i_23/CO[3]
-                         net (fo=1, unplaced)         0.000    16.544    gemv_core/acc_reg[31]_i_23_n_0
+                                                      0.429    12.910 r  gemv_core/dot4_r_reg[29]_i_4/CO[3]
+                         net (fo=1, unplaced)         0.000    12.910    gemv_core/dot4_r_reg[29]_i_4_n_0
                          CARRY4 (Prop_carry4_CI_O[0])
-                                                      0.232    16.776 r  gemv_core/acc_reg[31]_i_22/O[0]
-                         net (fo=3, unplaced)         0.488    17.264    gemv_core/C[16]
-                         LUT2 (Prop_lut2_I0_O)        0.295    17.559 r  gemv_core/acc[31]_i_24/O
-                         net (fo=1, unplaced)         0.000    17.559    gemv_core/acc[31]_i_24_n_0
-                         CARRY4 (Prop_carry4_S[1]_CO[2])
-                                                      0.574    18.133 r  gemv_core/acc_reg[31]_i_13/CO[2]
-                         net (fo=14, unplaced)        0.503    18.636    gemv_core/acc_reg[31]_i_13_n_1
-                         LUT2 (Prop_lut2_I1_O)        0.310    18.946 r  gemv_core/acc[20]_i_6/O
-                         net (fo=1, unplaced)         0.000    18.946    gemv_core/acc[20]_i_6_n_0
-                         CARRY4 (Prop_carry4_S[1]_CO[3])
-                                                      0.533    19.479 r  gemv_core/acc_reg[20]_i_2/CO[3]
-                         net (fo=1, unplaced)         0.000    19.479    gemv_core/acc_reg[20]_i_2_n_0
-                         CARRY4 (Prop_carry4_CI_CO[3])
-                                                      0.117    19.596 r  gemv_core/acc_reg[24]_i_2/CO[3]
-                         net (fo=1, unplaced)         0.000    19.596    gemv_core/acc_reg[24]_i_2_n_0
-                         CARRY4 (Prop_carry4_CI_O[3])
-                                                      0.331    19.927 r  gemv_core/acc_reg[31]_i_3/O[3]
-                         net (fo=1, unplaced)         0.448    20.375    gemv_core/acc0__13[31]
-                         LUT6 (Prop_lut6_I0_O)        0.307    20.682 r  gemv_core/acc[31]_i_2/O
-                         net (fo=1, unplaced)         0.000    20.682    gemv_core/acc[31]_i_2_n_0
-                         FDRE                                         r  gemv_core/acc_reg[31]/D
+                                                      0.232    13.142 r  gemv_core/dot4_r_reg[29]_i_3/O[0]
+                         net (fo=3, unplaced)         0.488    13.630    gemv_core/dot4_r_reg[29]_i_3_n_7
+                         LUT2 (Prop_lut2_I0_O)        0.295    13.925 r  gemv_core/dot4_r[29]_i_5/O
+                         net (fo=1, unplaced)         0.000    13.925    gemv_core/dot4_r[29]_i_5_n_0
+                         CARRY4 (Prop_carry4_S[1]_O[2])
+                                                      0.578    14.503 r  gemv_core/dot4_r_reg[29]_i_2/O[2]
+                         net (fo=1, unplaced)         0.000    14.503    gemv_core/dot4_c[29]
+                         FDRE                                         r  gemv_core/dot4_r_reg[29]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock main_crg_clkout0 rise edge)
@@ -481,16 +459,16 @@ Slack (VIOLATED) :        -6.086ns  (required time - arrival time)
                                                       0.083    12.787 r  PLLE2_ADV/CLKOUT0
                          net (fo=1, unplaced)         0.763    13.550    main_crg_clkout0
                          BUFG (Prop_bufg_I_O)         0.091    13.641 r  BUFG/O
-                         net (fo=6685, unplaced)      0.658    14.299    gemv_core/main_crg_clkout_buf0
-                         FDRE                                         r  gemv_core/acc_reg[31]/C
+                         net (fo=6789, unplaced)      0.658    14.299    gemv_core/main_crg_clkout_buf0
+                         FDRE                                         r  gemv_core/dot4_r_reg[29]/C
                          clock pessimism              0.311    14.609    
                          clock uncertainty           -0.057    14.553    
-                         FDRE (Setup_fdre_C_D)        0.044    14.597    gemv_core/acc_reg[31]
+                         FDRE (Setup_fdre_C_D)        0.076    14.629    gemv_core/dot4_r_reg[29]
   -------------------------------------------------------------------
-                         required time                         14.597    
-                         arrival time                         -20.682    
+                         required time                         14.629    
+                         arrival time                         -14.503    
   -------------------------------------------------------------------
-                         slack                                 -6.086    
+                         slack                                  0.125    
 
 
 
@@ -527,7 +505,7 @@ Slack (MET) :             0.022ns  (arrival time - required time)
                                                       0.050     0.778 r  PLLE2_ADV/CLKOUT0
                          net (fo=1, unplaced)         0.338     1.116    main_crg_clkout0
                          BUFG (Prop_bufg_I_O)         0.026     1.142 r  BUFG/O
-                         net (fo=6685, unplaced)      0.211     1.354    main_crg_clkout_buf0
+                         net (fo=6789, unplaced)      0.211     1.354    main_crg_clkout_buf0
                          FDRE                                         r  main_a7ddrphy_rst_storage_reg/C
   -------------------------------------------------------------------    -------------------
                          FDRE (Prop_fdre_C_Q)         0.147     1.501 r  main_a7ddrphy_rst_storage_reg/Q
@@ -549,7 +527,7 @@ Slack (MET) :             0.022ns  (arrival time - required time)
                                                       0.053     1.135 r  PLLE2_ADV/CLKOUT0
                          net (fo=1, unplaced)         0.356     1.491    main_crg_clkout0
                          BUFG (Prop_bufg_I_O)         0.029     1.520 r  BUFG/O
-                         net (fo=6685, unplaced)      0.356     1.876    main_crg_clkout_buf0
+                         net (fo=6789, unplaced)      0.356     1.876    main_crg_clkout_buf0
     OLOGIC_X1Y88         OSERDESE2                                    r  OSERDESE2/CLKDIV
                          clock pessimism             -0.377     1.499    
     OLOGIC_X1Y88         OSERDESE2 (Hold_oserdese2_CLKDIV_RST)

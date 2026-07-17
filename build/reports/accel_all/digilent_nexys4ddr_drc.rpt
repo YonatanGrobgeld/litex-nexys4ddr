@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
-| Date         : Mon May 18 12:38:27 2026
+| Date         : Fri Jul 17 17:44:38 2026
 | Host         : DESKTOP-6JLD9LJ running 64-bit major release  (build 9200)
 | Command      : report_drc -file digilent_nexys4ddr_drc.rpt
 | Design       : digilent_nexys4ddr
@@ -24,7 +24,7 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max checks: <unlimited>
-             Checks found: 75
+             Checks found: 74
 +-------------+----------+-----------------------------------------------------+--------+
 | Rule        | Severity | Description                                         | Checks |
 +-------------+----------+-----------------------------------------------------+--------+
@@ -32,7 +32,7 @@ Table of Contents
 | CFGBVS-1    | Warning  | Missing CFGBVS and CONFIG_VOLTAGE Design Properties | 1      |
 | DPIP-1      | Warning  | Input pipelining                                    | 8      |
 | DPOP-2      | Warning  | MREG Output pipelining                              | 3      |
-| PLBUFGOPT-1 | Warning  | Non-Optimal connections to BUFG                     | 2      |
+| PLBUFGOPT-1 | Warning  | Non-Optimal connections to BUFG                     | 1      |
 | REQP-1580   | Warning  | Phase alignment                                     | 59     |
 +-------------+----------+-----------------------------------------------------+--------+
 
@@ -119,11 +119,6 @@ Related violations: <none>
 PLBUFGOPT-1#1 Warning
 Non-Optimal connections to BUFG  
 A non-muxed BUFG BUFG is driven by another global buffer BUFG_replica. Remove non-muxed BUFG if it is not desired
-Related violations: <none>
-
-PLBUFGOPT-1#2 Warning
-Non-Optimal connections to BUFG  
-A non-muxed BUFG BUFG_replica is driven by another global buffer BUFG_replica_1. Remove non-muxed BUFG if it is not desired
 Related violations: <none>
 
 REQP-1580#1 Warning
