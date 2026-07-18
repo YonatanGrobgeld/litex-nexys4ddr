@@ -55,7 +55,7 @@ Produces `digilent_nexys4ddr.bit` (Vivado runs synthesis, place & route, and bit
 ### Step 4 — Program FPGA (Vivado Hardware Manager)
 Open Vivado → Hardware Manager → Auto Connect → Program Device → select `digilent_nexys4ddr.bit`.
 
-### Step 5 — Build and load firmware (Linux build, Windows run)
+### Step 5 — Build firmware, then run + measure (Linux build, Windows run)
 ```bash
 # Build on Linux
 cd /path/to/TinyML_Algo/litex_port
@@ -63,10 +63,16 @@ make TARGET=accel_all      # or: baseline, accel_dot8, accel_lut, accel_gemv, ac
 cp firmware.bin /media/sf_Final_Project/accelerators/accel_all/
 ```
 ```powershell
-# Load on Windows PowerShell
-python -m litex.tools.litex_term --kernel C:\Final_Project\accelerator\firmware.bin COM3
+# Run + measure on Windows PowerShell
+python scripts/run_accel_all_and_measure.py --port COM3 --runs 10 --firmware firmware.bin
+# or, for a baseline (non-accelerated) firmware build:
+python scripts/run_baseline_and_measure.py --port COM3 --runs 10 --firmware firmware.bin
 ```
-The BIOS loads `firmware.bin` into DDR2 RAM and boots it. Firmware waits for `s` over UART, runs one TinyFormer inference, prints `CYCLES=<N>` / `TIME_US=<N>` / `Done`.
+There's no separate `litex_term` upload step — the measurement script resets the
+board, auto-uploads `firmware.bin` over the LiteX SFL protocol itself, waits for
+the firmware's `Ready` prompt, sends `s` to trigger one inference, and records the
+hardware `CYCLES` count to a results CSV. See `docs/MEASURE_ON_FPGA.md` for the
+full flow.
 
 ## Repository layout
 - `hw/build_soc.py` — Main SoC build script (CRG, DDR2 PHY, accelerator peripherals)
