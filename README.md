@@ -47,7 +47,7 @@ cp hw/rtl/exp_lut.v hw/rtl/gemv_core.v hw/rtl/VexRiscv_Dot8.v $TARGET/
 
 ### Step 3 — Synthesize bitstream (Windows PowerShell)
 ```powershell
-cd Z:\Final_Project\accelerators\accel_all
+cd C:\Final_Project\accelerators\accel_all
 vivado -mode batch -source digilent_nexys4ddr.tcl
 ```
 Produces `digilent_nexys4ddr.bit` (Vivado runs synthesis, place & route, and bitstream generation non-interactively; check `vivado.log` in the same folder if it fails).
