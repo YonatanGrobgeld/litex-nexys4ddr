@@ -32,7 +32,7 @@ The standard VexRiscv CPU and our DOT8-extended VexRiscv both define a Verilog m
 ```bash
 python3 hw/build_soc.py
 ```
-Outputs in `hw/build/gateware/`: `digilent_nexys4ddr.v`, `.xdc`, `_rom.init`, `_sram.init`, `resynth_windows.tcl`.
+Outputs in `hw/build/gateware/`: `digilent_nexys4ddr.v`, `.xdc`, `_rom.init`, `_sram.init`, `digilent_nexys4ddr.tcl` (the LiteX-generated Vivado build script).
 
 ### Step 2 — Copy to Windows shared folder
 ```bash
@@ -41,17 +41,16 @@ cp hw/build/gateware/digilent_nexys4ddr.v      $TARGET/
 cp hw/build/gateware/digilent_nexys4ddr_rom.init $TARGET/
 cp hw/build/gateware/digilent_nexys4ddr_sram.init $TARGET/
 cp hw/build/gateware/digilent_nexys4ddr.xdc    $TARGET/
-cp hw/build/gateware/resynth_windows.tcl       $TARGET/
+cp hw/build/gateware/digilent_nexys4ddr.tcl    $TARGET/
 cp hw/rtl/exp_lut.v hw/rtl/gemv_core.v hw/rtl/VexRiscv_Dot8.v $TARGET/
 ```
 
-### Step 3 — Synthesize bitstream (Windows Vivado)
-In the Vivado Tcl Console:
-```tcl
-cd C:/Final_Project/accelerator
-source resynth_windows.tcl
+### Step 3 — Synthesize bitstream (Windows PowerShell)
+```powershell
+cd Z:\Final_Project\accelerators\accel_all
+vivado -mode batch -source digilent_nexys4ddr.tcl
 ```
-Produces `digilent_nexys4ddr.bit`.
+Produces `digilent_nexys4ddr.bit` (Vivado runs synthesis, place & route, and bitstream generation non-interactively; check `vivado.log` in the same folder if it fails).
 
 ### Step 4 — Program FPGA (Vivado Hardware Manager)
 Open Vivado → Hardware Manager → Auto Connect → Program Device → select `digilent_nexys4ddr.bit`.
