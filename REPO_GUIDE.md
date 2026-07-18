@@ -65,6 +65,7 @@ the resulting bitstream that gets programmed onto the FPGA.
 | `build.sh` | One-stop driver for the shared-folder workflow. |
 | `build_sw_hello.sh` | Compiles the hello_measure smoke test. |
 | `run_hello.sh` / `run_hello_batch.sh` | Upload & run the smoke test over serial boot (batch version collects N cycle counts to check timing stability). |
+| `run_baseline_and_measure.py` / `run_accel_all_and_measure.py` | On-FPGA performance measurement: auto-upload a TinyFormer `firmware.bin` over UART (SFL) and record the hardware `CYCLES` per inference. Baseline vs. accel ⇒ speedup. See `docs/MEASURE_ON_FPGA.md`. |
 | `check_tcl_paths.sh` | Verifies the Vivado Tcl files have no Linux-only paths before the copy to Windows. |
 | `gen_rom_fix.py` | Regenerates the ROM init image from a BIOS binary (bring-up fix). |
 | `windows_build_bitstream.ps1` | The Windows half: runs Vivado synthesis → the bitstream. |

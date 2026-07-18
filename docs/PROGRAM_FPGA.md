@@ -47,3 +47,9 @@ To invoke Vivado in TCL mode on Linux, use:
 ```
 
 (Requires Vivado installed and `$XILINX_VIVADO` environment variable set.)
+
+## Next step — measure performance
+
+With the bitstream programmed, measure inference cycles on the board with the
+host scripts in `scripts/` — see **[docs/MEASURE_ON_FPGA.md](MEASURE_ON_FPGA.md)**
+(upload firmware over UART, run the demo, read the hardware `CYCLES`).
