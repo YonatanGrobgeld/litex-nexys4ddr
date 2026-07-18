@@ -20,8 +20,9 @@ the resulting bitstream that gets programmed onto the FPGA.
 
 1. **Linux (VM):** `python3 hw/build_soc.py` → generates the SoC Verilog, constraints,
    ROM/SRAM init images, the LiteX BIOS, and `csr.h`.
-2. **Windows:** `scripts/windows_build_bitstream.ps1` runs Vivado synthesis on the
-   copied files → produces `digilent_nexys4ddr.bit` (the bitstream).
+2. **Windows:** `vivado -mode batch -source digilent_nexys4ddr.tcl` (run directly in
+   PowerShell, no wrapper script) synthesizes the copied files → produces
+   `digilent_nexys4ddr.bit` (the bitstream).
 3. **Board:** program the bitstream (see `docs/PROGRAM_FPGA.md`), then load TinyFormer
    firmware over serial and run.
 
@@ -64,11 +65,13 @@ the resulting bitstream that gets programmed onto the FPGA.
 | `build_hw.sh` | Runs `build_soc.py` (the Linux half of the build). |
 | `build.sh` | One-stop driver for the shared-folder workflow. |
 | `build_sw_hello.sh` | Compiles the hello_measure smoke test. |
-| `run_hello.sh` / `run_hello_batch.sh` | Upload & run the smoke test over serial boot (batch version collects N cycle counts to check timing stability). |
+| `run_hello.sh` | Upload & run the smoke test over serial boot. |
 | `run_baseline_and_measure.py` / `run_accel_all_and_measure.py` | On-FPGA performance measurement: auto-upload a TinyFormer `firmware.bin` over UART (SFL) and record the hardware `CYCLES` per inference. Baseline vs. accel ⇒ speedup. See `docs/MEASURE_ON_FPGA.md`. |
-| `check_tcl_paths.sh` | Verifies the Vivado Tcl files have no Linux-only paths before the copy to Windows. |
 | `gen_rom_fix.py` | Regenerates the ROM init image from a BIOS binary (bring-up fix). |
-| `windows_build_bitstream.ps1` | The Windows half: runs Vivado synthesis → the bitstream. |
+
+The Windows half of the build (Vivado synthesis) is run directly —
+`vivado -mode batch -source digilent_nexys4ddr.tcl` in PowerShell — no wrapper
+script needed; LiteX's generated `.tcl` is already the complete build script.
 
 ## `docs/` — how-to documents
 

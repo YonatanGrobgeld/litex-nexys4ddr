@@ -50,18 +50,6 @@ On Windows, run these commands (PowerShell or CMD):
   vivado -mode batch -source digilent_nexys4ddr.tcl
 ```
 
-### Validate TCL Paths (Optional)
-To verify the TCL file has Windows-portable paths:
-```bash
-bash scripts/check_tcl_paths.sh
-```
-
-Expected output:
-```
-✅ PASS: TCL does not contain Linux-specific absolute paths
-Status: Windows-Portable
-```
-
 ---
 
 ## Step 2: Synthesize on Windows
@@ -182,16 +170,10 @@ If not found, add Vivado to PATH:
 3. Restart PowerShell
 
 ### TCL Script Fails on Windows
-Check if paths in the TCL are still absolute:
-```bash
-# On Ubuntu, run:
-bash scripts/check_tcl_paths.sh
-```
-
-If it fails, rebuild:
+Check if paths in the TCL are still absolute (search the file for `/home/` or `/media/`).
+If so, rebuild:
 ```bash
 bash scripts/build_hw.sh
-bash scripts/check_tcl_paths.sh
 ```
 
 ### Long Path Errors on Windows
